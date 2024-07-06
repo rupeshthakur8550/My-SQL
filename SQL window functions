@@ -1,0 +1,86 @@
+SQL window function:
+
+Aggregate Functions -
+
+1. SUM(): Calculates the cumulative sum of values.
+   Query Syntax -
+   SELECT *, SUM(column_name) OVER(PARTITION BY column_name ORDER BY column_name) AS new_column_name FROM table_name;
+   
+
+2. AVG(): Computes the average of values.
+   Query Syntax -
+   SELECT *, AVG(column_name) OVER(PARTITION BY column_name ORDER BY column_name) AS new_column_name FROM table_name;
+   
+
+3. MIN(): Finds the minimum value.
+   Query Syntax -
+   SELECT *, MIN(column_name) OVER(PARTITION BY column_name ORDER BY column_name) AS new_column_name FROM table_name;
+   
+
+4. MAX(): Identifies the maximum value.
+   Query Syntax -
+   SELECT *, MAX(column_name) OVER(PARTITION BY column_name ORDER BY column_name) AS new_column_name FROM table_name;
+   
+
+5. COUNT(): Counts the number of values.
+   Query Syntax -
+   SELECT *, COUNT(column_name) OVER(PARTITION BY column_name ORDER BY column_name) AS new_column_name FROM table_name;
+   
+
+Analytical Functions -
+
+I. Ranking Functions-
+
+1. RANK(): Assigns a rank to each row with gaps for ties. (If ranking goes like 1,1 then it skips 2 and jump 3)
+   Query Syntax -
+   SELECT *, RANK() OVER(ORDER BY column_name) FROM table_name;
+   
+
+2. DENSE_RANK(): Assigns a rank to each row without gaps for ties. (It doesn't skips as rank did)
+   Query Syntax -
+   SELECT *, DENSE_RANK() OVER(ORDER BY column_name) FROM table_name;
+   
+
+3. ROW_NUMBER(): Assigns a unique number to each row, regardless of ties.
+   Query Syntax -
+   SELECT *, ROW_NUMBER() OVER(ORDER BY column_name) FROM table_name;
+   
+
+4. PERCENT_RANK(): Calculates the relative rank of each row.
+   Query Syntax - 
+   SELECT *, PERCENT_RANK() OVER(ORDER BY column_name) FROM table_name;
+   
+
+5. NTILE(): Distributes rows into a specified number of buckets.
+   Query Syntax -
+   SELECT *, NTILE(val) OVER(ORDER BY column_name) FROM table_name; 
+   val defines the number of buckets in which the division taking place.
+   
+
+II. Value Functions -
+
+1. LAG(): Accesses data from the preceding row at a specified offset.
+   Query Syntax -
+   SELECT *, LAG(column_name, offset, default_value) OVER(PARTITION BY column_name ORDER BY column_name) FROM table_name;
+   
+
+2. LEAD(): Accesses data from the following row at a specified offset.
+   Query Syntax -
+   SELECT *, LEAD(column_name, offset, default_value) OVER(PARTITION BY column_name ORDER BY column_name) FROM table_name;
+   
+
+3. FIRST_VALUE(): Returns the first value in an ordered set.
+   Query Syntax -
+   SELECT *, FIRST_VALUE(column_name) OVER(ORDER BY column_name) FROM table_name;
+   
+
+4. LAST_VALUE(): Returns the last value in an ordered set.
+   Query Syntax -
+   SELECT *, LAST_VALUE(column_name) OVER(ORDER BY column_name) FROM table_name;
+   
+
+5. NTH_VALUE(): Returns the nth value in an ordered set.
+   Query Syntax -
+   SELECT *, NTH_VALUE(column_name, val) OVER(PARTITION BY column_name ORDER BY column_name) FROM table_name; 
+   val specifies the position and also usefull to return nth salary or nth row.
+   
