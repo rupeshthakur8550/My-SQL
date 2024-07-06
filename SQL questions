@@ -1,0 +1,181 @@
+employee Table -
+
+| id  | name   | salary | dept_id | manager_id |
+|-----|--------|--------|---------|------------|
+| 1   | Alice  | 90000  | 1       | NULL       |
+| 2   | Bob    | 80000  | 2       | 1          |
+| 3   | Carol  | 70000  | 1       | 1          |
+| 4   | David  | 60000  | 3       | 2          |
+| 5   | Eve    | 70000  | 2       | 2          |
+| 6   | Frank  | 90000  | 1       | 3          |
+| 7   | Grace  | 60000  | 3       | 4          |
+| 8   | Heidi  | 75000  | 2       | 5          |
+| 9   | Ivan   | 60000  | 3       | 6          |
+| 10  | Judy   | 65000  | 3       | 7          |
+
+department Table -
+
+| id  | name         |
+|-----|--------------|
+| 1   | HR           |
+| 2   | Engineering  |
+| 3   | Sales        |
+
+
+Table Creation and Data Copying -
+
+1. Copy table with data:
+   
+   CREATE TABLE emp SELECT * FROM employee;
+   
+   [Creates a new table `emp` with the same structure and data as `employee`].
+
+2. Copy table schema:
+   
+   CREATE TABLE emp AS (SELECT * FROM employee WHERE 1 = 2);
+   
+   [Creates a new table `emp` with the same structure as `employee` but without any data].
+
+
+Selecting the Nth Value -
+
+1. Nth value using LIMIT only:
+   
+   SELECT * FROM employee ORDER BY salary DESC LIMIT n-1, 1;
+   
+   [Retrieves the nth highest salary record].
+
+2. Nth value using LIMIT and OFFSET:
+   
+   SELECT * FROM employee ORDER BY salary DESC LIMIT 1 OFFSET n - 1;
+   
+   [Retrieves the nth highest salary record].
+
+
+Date Functions -
+
+1. Current date:
+   
+   SELECT CURRENT_DATE;
+   SELECT CURRENT_DATE();
+   SELECT DATE(NOW());
+
+   [Retrieves the current date].
+   
+
+Joins -
+
+1. Inner join:
+   
+   SELECT * FROM employee INNER JOIN emp ON employee.id = emp.id;
+   
+   [Retrieves records that have matching values in both tables].
+
+2. Self join:
+   
+   SELECT A.id, A.name, B.manager_id, B.name FROM employee A, employee B WHERE A.id = B.manager_id;
+   
+   [Joins the `employee` table with itself to find relationships like manager-subordinate].
+
+3. Left outer join:
+   
+   SELECT * FROM employee E LEFT JOIN department D ON E.id = D.id;
+   
+   [Retrieves all records from the `employee` table and matched records from the `department` table. Unmatched records in the `department` table will have NULL values].
+
+4. Exclusive Left outer join:
+   
+   SELECT * FROM employee E LEFT JOIN department D ON E.id = D.id WHERE D.id IS NULL;
+   
+   [Retrieves all records from the employee table that do not have matching records in the department table.].
+
+5. Right outer join:
+   
+   SELECT * FROM employee E RIGHT JOIN department D ON E.id = D.id;
+   
+   [Retrieves all records from the `department` table and matched records from the `employee` table. Unmatched records in the `employee` table will have NULL values].
+
+
+6. Exclusive Right outer join:
+   
+   SELECT * FROM employee E RIGHT JOIN department D ON E.id = D.id WHERE E.id IS NULL;
+   
+   [Retrieves all records from the department table that do not have matching records in the employee table.].
+
+
+7. Full outer join:
+   
+   SELECT * FROM employee E FULL JOIN department D ON E.id = D.id;
+   
+   [Retrieves records when there is a match in either table. Unmatched records will have NULL values].
+
+
+Aggregation and Grouping -
+
+1. Select duplicates:
+   
+   SELECT name, COUNT(*) FROM employee GROUP BY name HAVING COUNT(name) > 1;
+   
+   [Finds duplicate names in the `employee` table].
+
+2. Remove duplicates:
+   
+   DELETE e1 FROM employee e1 INNER JOIN employee e2 WHERE e1.id < e2.id AND e1.name = e2.name;
+   
+   [Deletes duplicate rows based on the `name` column, keeping the row with the lowest `id`].
+
+3. Select nth record:
+   
+   SELECT * FROM employee LIMIT n-1, 1;
+   
+   [Retrieves the nth record from the `employee` table].
+
+4. Non-duplicated data:
+   
+   SELECT DISTINCT dept_id FROM employee;
+   SELECT dept_id FROM employee GROUP BY dept_id;
+   SELECT dept_id FROM employee UNION SELECT dept_id FROM employee;
+   
+   [Retrieves unique department IDs from the `employee` table].
+
+5. Department and max salary:
+   
+   SELECT dept_id, MAX(Salary) FROM employee GROUP BY dept_id;
+   SELECT dept_id, MAX(Salary) FROM employee e RIGHT JOIN department d ON (e.dept_id = d.id) GROUP BY dept_id;
+   SELECT dept_id, MAX(Salary) FROM employee e LEFT JOIN department d ON (d.id = e.dept_id) GROUP BY dept_id;
+   
+   [Finds the maximum salary for each department].
+
+6. Department and employee count:
+   
+   SELECT dept_id, COUNT(dept_id) AS count FROM employee GROUP BY dept_id ORDER BY COUNT(dept_id);
+   
+   [Counts the number of employees in each department and orders the results by count].
+
+Data Type Modification
+
+1. Change data type using ALTER:
+   
+   ALTER TABLE employee MODIFY dept_id BIGINT;
+   
+   [Changes the data type of `dept_id` in the `employee` table to `BIGINT`].
+
+2. Update data using UPDATE:
+
+   UPDATE employee SET manager_id = 2 WHERE id = 1;
+
+   [Update the data of employee table to new set value].
+
+ACID Properties 
+
+1. Atomicity:
+   Ensures that a series of database operations either all occur, or none occur.
+
+2. Consistency:
+   Ensures that a transaction brings the database from one valid state to another.
+
+3. Isolation:
+   Ensures that transactions occur independently without interference.
+
+4. Durability:
+   Guarantees that once a transaction is committed, it will remain so, even in the event of a system failure.
