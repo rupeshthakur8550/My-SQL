@@ -1,3 +1,354 @@
+### Basics
+
+#### Introduction to MySQL
+MySQL is an open-source relational database management system (RDBMS) that uses structured query language (SQL) for database access and management.
+
+#### CRUD Operations
+
+- **Create**
+  - **Description:** Used to create a new table or insert new data into a table.
+  - **Example:**
+    ```sql
+    CREATE TABLE users (
+      id INT AUTO_INCREMENT,
+      name VARCHAR(100),
+      email VARCHAR(100),
+      PRIMARY KEY (id)
+    );
+    ```
+
+- **Read**
+  - **Description:** Used to retrieve data from a table.
+  - **Example:**
+    ```sql
+    SELECT * FROM users;
+    ```
+
+- **Update**
+  - **Description:** Used to modify existing records in a table.
+  - **Example:**
+    ```sql
+    UPDATE users
+    SET email = 'newemail@example.com'
+    WHERE id = 1;
+    ```
+
+- **Delete**
+  - **Description:** Used to delete records from a table.
+  - **Example:**
+    ```sql
+    DELETE FROM users WHERE id = 1;
+    ```
+
+### String Functions
+
+- **CONCAT**
+  - **Description:** Concatenates two or more strings.
+  - **Example:**
+    ```sql
+    SELECT CONCAT('Hello', ' World');
+    ```
+
+- **CONCAT_WS**
+  - **Description:** Concatenates strings with a separator.
+  - **Example:**
+    ```sql
+    SELECT CONCAT_WS(',', 'Hello', 'World');
+    ```
+
+- **LENGTH**
+  - **Description:** Returns the length of a string.
+  - **Example:**
+    ```sql
+    SELECT LENGTH('Hello World');
+    ```
+
+- **SUBSTRING**
+  - **Description:** Extracts a substring from a string.
+  - **Example:**
+    ```sql
+    SELECT SUBSTRING('Hello World', 1, 5);
+    ```
+
+- **UPPER**
+  - **Description:** Converts a string to uppercase.
+  - **Example:**
+    ```sql
+    SELECT UPPER('Hello World');
+    ```
+
+- **LOWER**
+  - **Description:** Converts a string to lowercase.
+  - **Example:**
+    ```sql
+    SELECT LOWER('Hello World');
+    ```
+
+- **REPLACE**
+  - **Description:** Replaces all occurrences of a substring within a string.
+  - **Example:**
+    ```sql
+    SELECT REPLACE('Hello World', 'World', 'Everyone');
+    ```
+
+### ALTER Table
+
+- **Add Column**
+  - **Description:** Adds a new column to a table.
+  - **Example:**
+    ```sql
+    ALTER TABLE users ADD age INT;
+    ```
+
+- **Drop Column**
+  - **Description:** Deletes a column from a table.
+  - **Example:**
+    ```sql
+    ALTER TABLE users DROP COLUMN age;
+    ```
+
+- **Modify Column**
+  - **Description:** Changes the data type of a column.
+  - **Example:**
+    ```sql
+    ALTER TABLE users MODIFY COLUMN name VARCHAR(150);
+    ```
+
+- **Rename Column**
+  - **Description:** Renames a column in a table.
+  - **Example:**
+    ```sql
+    ALTER TABLE users CHANGE COLUMN old_name new_name VARCHAR(100);
+    ```
+
+- **Rename Table**
+  - **Description:** Renames a table.
+  - **Example:**
+    ```sql
+    ALTER TABLE old_table_name RENAME TO new_table_name;
+    ```
+
+### Views
+
+- **Create View**
+  - **Description:** Creates a virtual table based on the result set of a SELECT query.
+  - **Example:**
+    ```sql
+    CREATE VIEW user_emails AS
+    SELECT name, email FROM users;
+    ```
+
+- **Drop View**
+  - **Description:** Deletes a view.
+  - **Example:**
+    ```sql
+    DROP VIEW user_emails;
+    ```
+
+### Subqueries
+
+- **Description:** A query nested inside another query.
+- **Example:**
+  ```sql
+  SELECT name FROM users
+  WHERE id IN (SELECT user_id FROM orders WHERE amount > 100);
+  ```
+
+### WHERE Clause
+
+- **Description:** Used to filter records.
+- **Example:**
+  ```sql
+  SELECT * FROM users WHERE age > 25;
+  ```
+
+### HAVING Clause
+
+- **Description:** Used to filter records after an aggregation.
+- **Example:**
+  ```sql
+  SELECT age, COUNT(*) FROM users
+  GROUP BY age
+  HAVING COUNT(*) > 1;
+  ```
+
+### IN Operator
+
+- **Description:** Used to specify multiple values in a WHERE clause.
+- **Example:**
+  ```sql
+  SELECT * FROM users WHERE age IN (25, 30, 35);
+  ```
+
+### NOT IN Operator
+
+- **Description:** Used to specify multiple values to exclude in a WHERE clause.
+- **Example:**
+  ```sql
+  SELECT * FROM users WHERE age NOT IN (25, 30, 35);
+  ```
+
+### BETWEEN Operator
+
+- **Description:** Selects values within a given range.
+- **Example:**
+  ```sql
+  SELECT * FROM users WHERE age BETWEEN 25 AND 30;
+  ```
+
+### LIKE Operator
+
+- **Description:** Used to search for a specified pattern in a column.
+- **Example:**
+  ```sql
+  SELECT * FROM users WHERE name LIKE 'A%';
+  ```
+
+### DISTINCT Keyword
+
+- **Description:** Used to return only distinct (different) values.
+- **Example:**
+  ```sql
+  SELECT DISTINCT name FROM users;
+  ```
+
+### LIMIT Clause
+
+- **Description:** Specifies the number of records to return.
+- **Example:**
+  ```sql
+  SELECT * FROM users LIMIT 5;
+  ```
+
+### ORDER BY Clause
+
+- **Description:** Used to sort the result set.
+- **Example:**
+  ```sql
+  SELECT * FROM users ORDER BY name ASC;
+  ```
+
+### GROUP BY Clause
+
+- **Description:** Groups rows that have the same values into summary rows.
+- **Example:**
+  ```sql
+  SELECT COUNT(*), age FROM users GROUP BY age;
+  ```
+
+### IF Statement
+
+- **Description:** Returns a value based on a condition.
+- **Example:**
+  ```sql
+  SELECT IF(age > 25, 'Older', 'Younger') FROM users;
+  ```
+
+### CASE Statement
+
+- **Description:** Similar to IF, but for multiple conditions.
+- **Example:**
+  ```sql
+  SELECT
+    CASE
+      WHEN age < 20 THEN 'Teenager'
+      WHEN age >= 20 AND age < 30 THEN 'Young Adult'
+      ELSE 'Adult'
+    END AS age_group
+  FROM users;
+  ```
+
+### Transactions
+
+- **Start Transaction**
+  - **Description:** Begins a new transaction.
+  - **Example:**
+    ```sql
+    START TRANSACTION;
+    ```
+
+- **Commit**
+  - **Description:** Commits the current transaction.
+  - **Example:**
+    ```sql
+    COMMIT;
+    ```
+
+- **Rollback**
+  - **Description:** Rolls back the current transaction.
+  - **Example:**
+    ```sql
+    ROLLBACK;
+    ```
+
+### Stored Procedures
+
+- **Create Procedure**
+  - **Description:** Creates a stored procedure.
+  - **Example:**
+    ```sql
+    CREATE PROCEDURE procedure_name()
+    BEGIN
+      -- SQL statements
+    END;
+    ```
+
+- **Call Procedure**
+  - **Description:** Calls a stored procedure.
+  - **Example:**
+    ```sql
+    CALL procedure_name();
+    ```
+
+### Triggers
+
+- **Create Trigger**
+  - **Description:** Creates a trigger that is invoked automatically.
+  - **Example:**
+    ```sql
+    CREATE TRIGGER trigger_name
+    BEFORE/AFTER INSERT/UPDATE/DELETE
+    ON table_name
+    FOR EACH ROW
+    BEGIN
+      -- SQL statements
+    END;
+    ```
+
+### Optimization
+
+- **Explain**
+  - **Description:** Analyzes the execution plan of a query.
+  - **Example:**
+    ```sql
+    EXPLAIN SELECT * FROM users;
+    ```
+
+- **Optimize Table**
+  - **Description:** Optimizes a table.
+  - **Example:**
+    ```sql
+    OPTIMIZE TABLE users;
+    ```
+
+### Backup and Restore
+
+- **Backup Database**
+  - **Description:** Backs up a MySQL database.
+  - **Example:**
+    ```sh
+    mysqldump -u username -p database_name > backup_file.sql
+    ```
+
+- **Restore Database**
+  - **Description:** Restores a MySQL database from a backup file.
+  - **Example:**
+    ```sh
+    mysql -u username -p database_name < backup_file.sql
+    ```
+
+### Employee and Department Tables
+
 employee Table -
 
 | id  | name   | salary | dept_id | manager_id |
