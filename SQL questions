@@ -1,254 +1,223 @@
-### Basics
+Basics :- 
 
-#### Introduction to MySQL
 MySQL is an open-source relational database management system (RDBMS) that uses structured query language (SQL) for database access and management.
 
-#### CRUD Operations
+CRUD Operations-
 
-- **Create**
-  - **Description:** Used to create a new table or insert new data into a table.
-  - **Example:**
-    ```sql
+1. Create
+  - Description: Used to create a new table or insert new data into a table.
+  - Example:
+    
     CREATE TABLE users (
       id INT AUTO_INCREMENT,
       name VARCHAR(100),
       email VARCHAR(100),
       PRIMARY KEY (id)
     );
-    ```
+    
+2. Read
+  - Description: Used to retrieve data from a table.
+  - Example:
+    
+    SELECT * FROM users;  
 
-- **Read**
-  - **Description:** Used to retrieve data from a table.
-  - **Example:**
-    ```sql
-    SELECT * FROM users;
-    ```
-
-- **Update**
-  - **Description:** Used to modify existing records in a table.
-  - **Example:**
-    ```sql
+3. Update
+  - Description: Used to modify existing records in a table.
+  - Example:
+    
     UPDATE users
     SET email = 'newemail@example.com'
     WHERE id = 1;
-    ```
-
-- **Delete**
-  - **Description:** Used to delete records from a table.
-  - **Example:**
-    ```sql
+    
+4. Delete
+  - Description: Used to delete records from a table.
+  - Example:
+    
     DELETE FROM users WHERE id = 1;
-    ```
+    
+String Functions -
 
-### String Functions
-
-- **CONCAT**
-  - **Description:** Concatenates two or more strings.
-  - **Example:**
-    ```sql
+1. CONCAT
+  - Description: Concatenates two or more strings.
+  - Example:
+    
     SELECT CONCAT('Hello', ' World');
-    ```
-
-- **CONCAT_WS**
-  - **Description:** Concatenates strings with a separator.
-  - **Example:**
-    ```sql
+    
+2. CONCAT_WS
+  - Description: Concatenates strings with a separator.
+  - Example:
+    
     SELECT CONCAT_WS(',', 'Hello', 'World');
-    ```
-
-- **LENGTH**
-  - **Description:** Returns the length of a string.
-  - **Example:**
-    ```sql
+    
+3. LENGTH
+  - Description: Returns the length of a string.
+  - Example:
+    
     SELECT LENGTH('Hello World');
-    ```
-
-- **SUBSTRING**
-  - **Description:** Extracts a substring from a string.
-  - **Example:**
-    ```sql
+    
+4. SUBSTRING
+  - Description: Extracts a substring from a string.
+  - Example:
+    
     SELECT SUBSTRING('Hello World', 1, 5);
-    ```
-
-- **UPPER**
-  - **Description:** Converts a string to uppercase.
-  - **Example:**
-    ```sql
+    
+5. UPPER
+  - Description: Converts a string to uppercase.
+  - Example:
+    
     SELECT UPPER('Hello World');
-    ```
-
-- **LOWER**
-  - **Description:** Converts a string to lowercase.
-  - **Example:**
-    ```sql
+    
+6. LOWER
+  - Description: Converts a string to lowercase.
+  - Example:
+    
     SELECT LOWER('Hello World');
-    ```
-
-- **REPLACE**
-  - **Description:** Replaces all occurrences of a substring within a string.
-  - **Example:**
-    ```sql
+    
+7. REPLACE
+  - Description: Replaces all occurrences of a substring within a string.
+  - Example:
+    
     SELECT REPLACE('Hello World', 'World', 'Everyone');
-    ```
+    
+ALTER Table -
 
-### ALTER Table
-
-- **Add Column**
-  - **Description:** Adds a new column to a table.
-  - **Example:**
-    ```sql
+1. Add Column
+  - Description: Adds a new column to a table.
+  - Example:
+    
     ALTER TABLE users ADD age INT;
-    ```
-
-- **Drop Column**
-  - **Description:** Deletes a column from a table.
-  - **Example:**
-    ```sql
+    
+2. Drop Column
+  - Description: Deletes a column from a table.
+  - Example:
+    
     ALTER TABLE users DROP COLUMN age;
-    ```
-
-- **Modify Column**
-  - **Description:** Changes the data type of a column.
-  - **Example:**
-    ```sql
+    
+3. Modify Column
+  - Description: Changes the data type of a column.
+  - Example:
+    
     ALTER TABLE users MODIFY COLUMN name VARCHAR(150);
-    ```
-
-- **Rename Column**
-  - **Description:** Renames a column in a table.
-  - **Example:**
-    ```sql
+    
+4. Rename Column
+  - Description: Renames a column in a table.
+  - Example:
+    
     ALTER TABLE users CHANGE COLUMN old_name new_name VARCHAR(100);
-    ```
-
-- **Rename Table**
-  - **Description:** Renames a table.
-  - **Example:**
-    ```sql
+    
+5. Rename Table
+  - Description: Renames a table.
+  - Example:
+    
     ALTER TABLE old_table_name RENAME TO new_table_name;
-    ```
+    
+Views -
 
-### Views
-
-- **Create View**
-  - **Description:** Creates a virtual table based on the result set of a SELECT query.
-  - **Example:**
-    ```sql
+1. Create View
+  - Description: Creates a virtual table based on the result set of a SELECT query.
+  - Example:
+    
     CREATE VIEW user_emails AS
     SELECT name, email FROM users;
-    ```
-
-- **Drop View**
-  - **Description:** Deletes a view.
-  - **Example:**
-    ```sql
+    
+2. Drop View
+  - Description: Deletes a view.
+  - Example:
+    
     DROP VIEW user_emails;
-    ```
+    
+Subqueries -
 
-### Subqueries
-
-- **Description:** A query nested inside another query.
-- **Example:**
-  ```sql
+- Description: A query nested inside another query.
+- Example:
+  
   SELECT name FROM users
   WHERE id IN (SELECT user_id FROM orders WHERE amount > 100);
-  ```
+  
+WHERE Clause -
 
-### WHERE Clause
-
-- **Description:** Used to filter records.
-- **Example:**
-  ```sql
+- Description: Used to filter records.
+- Example:
+  
   SELECT * FROM users WHERE age > 25;
-  ```
+  
+HAVING Clause -
 
-### HAVING Clause
-
-- **Description:** Used to filter records after an aggregation.
-- **Example:**
-  ```sql
+- Description: Used to filter records after an aggregation.
+- Example:
+  
   SELECT age, COUNT(*) FROM users
   GROUP BY age
   HAVING COUNT(*) > 1;
-  ```
+  
+IN Operator -
 
-### IN Operator
-
-- **Description:** Used to specify multiple values in a WHERE clause.
-- **Example:**
-  ```sql
+- Description: Used to specify multiple values in a WHERE clause.
+- Example:
+  
   SELECT * FROM users WHERE age IN (25, 30, 35);
-  ```
+  
+NOT IN Operator -
 
-### NOT IN Operator
-
-- **Description:** Used to specify multiple values to exclude in a WHERE clause.
-- **Example:**
-  ```sql
+- Description: Used to specify multiple values to exclude in a WHERE clause.
+- Example:
+  
   SELECT * FROM users WHERE age NOT IN (25, 30, 35);
-  ```
+  
+BETWEEN Operator -
 
-### BETWEEN Operator
-
-- **Description:** Selects values within a given range.
-- **Example:**
-  ```sql
+- Description: Selects values within a given range.
+- Example:
+  
   SELECT * FROM users WHERE age BETWEEN 25 AND 30;
-  ```
+  
+LIKE Operator -
 
-### LIKE Operator
-
-- **Description:** Used to search for a specified pattern in a column.
-- **Example:**
-  ```sql
+- Description: Used to search for a specified pattern in a column.
+- Example:
+  
   SELECT * FROM users WHERE name LIKE 'A%';
-  ```
+  
+DISTINCT Keyword -
 
-### DISTINCT Keyword
-
-- **Description:** Used to return only distinct (different) values.
-- **Example:**
-  ```sql
+- Description: Used to return only distinct (different) values.
+- Example:
+  
   SELECT DISTINCT name FROM users;
-  ```
+  
+LIMIT Clause-
 
-### LIMIT Clause
-
-- **Description:** Specifies the number of records to return.
-- **Example:**
-  ```sql
+- Description: Specifies the number of records to return.
+- Example:
+  
   SELECT * FROM users LIMIT 5;
-  ```
+  
+ORDER BY Clause -
 
-### ORDER BY Clause
-
-- **Description:** Used to sort the result set.
-- **Example:**
-  ```sql
+- Description: Used to sort the result set.
+- Example:
+  
   SELECT * FROM users ORDER BY name ASC;
-  ```
+  
+GROUP BY Clause -
 
-### GROUP BY Clause
-
-- **Description:** Groups rows that have the same values into summary rows.
-- **Example:**
-  ```sql
+- Description: Groups rows that have the same values into summary rows.
+- Example:
+  
   SELECT COUNT(*), age FROM users GROUP BY age;
-  ```
-
-### IF Statement
-
-- **Description:** Returns a value based on a condition.
-- **Example:**
-  ```sql
+  
+IF Statement -
+ 
+- Description: Returns a value based on a condition.
+- Example:
+  
   SELECT IF(age > 25, 'Older', 'Younger') FROM users;
-  ```
+  
+CASE Statement -
 
-### CASE Statement
-
-- **Description:** Similar to IF, but for multiple conditions.
-- **Example:**
-  ```sql
+- Description: Similar to IF, but for multiple conditions.
+- Example:
+  
   SELECT
     CASE
       WHEN age < 20 THEN 'Teenager'
@@ -256,56 +225,50 @@ MySQL is an open-source relational database management system (RDBMS) that uses 
       ELSE 'Adult'
     END AS age_group
   FROM users;
-  ```
+  
+Transactions-
 
-### Transactions
-
-- **Start Transaction**
-  - **Description:** Begins a new transaction.
-  - **Example:**
-    ```sql
+- Start Transaction
+  - Description: Begins a new transaction.
+  - Example:
+    
     START TRANSACTION;
-    ```
-
-- **Commit**
-  - **Description:** Commits the current transaction.
-  - **Example:**
-    ```sql
+    
+- Commit
+  - Description: Commits the current transaction.
+  - Example:
+    
     COMMIT;
-    ```
-
-- **Rollback**
-  - **Description:** Rolls back the current transaction.
-  - **Example:**
-    ```sql
+    
+- Rollback
+  - Description: Rolls back the current transaction.
+  - Example:
+    
     ROLLBACK;
-    ```
+    
+Stored Procedures -
 
-### Stored Procedures
-
-- **Create Procedure**
-  - **Description:** Creates a stored procedure.
-  - **Example:**
-    ```sql
+- Create Procedure
+  - Description: Creates a stored procedure.
+  - Example:
+    
     CREATE PROCEDURE procedure_name()
     BEGIN
       -- SQL statements
     END;
-    ```
-
-- **Call Procedure**
-  - **Description:** Calls a stored procedure.
-  - **Example:**
-    ```sql
+    
+- Call Procedure
+  - Description: Calls a stored procedure.
+  - Example:
+    
     CALL procedure_name();
-    ```
+    
+Triggers -
 
-### Triggers
-
-- **Create Trigger**
-  - **Description:** Creates a trigger that is invoked automatically.
-  - **Example:**
-    ```sql
+- Create Trigger
+  - Description: Creates a trigger that is invoked automatically.
+  - Example:
+    
     CREATE TRIGGER trigger_name
     BEFORE/AFTER INSERT/UPDATE/DELETE
     ON table_name
@@ -313,41 +276,8 @@ MySQL is an open-source relational database management system (RDBMS) that uses 
     BEGIN
       -- SQL statements
     END;
-    ```
-
-### Optimization
-
-- **Explain**
-  - **Description:** Analyzes the execution plan of a query.
-  - **Example:**
-    ```sql
-    EXPLAIN SELECT * FROM users;
-    ```
-
-- **Optimize Table**
-  - **Description:** Optimizes a table.
-  - **Example:**
-    ```sql
-    OPTIMIZE TABLE users;
-    ```
-
-### Backup and Restore
-
-- **Backup Database**
-  - **Description:** Backs up a MySQL database.
-  - **Example:**
-    ```sh
-    mysqldump -u username -p database_name > backup_file.sql
-    ```
-
-- **Restore Database**
-  - **Description:** Restores a MySQL database from a backup file.
-  - **Example:**
-    ```sh
-    mysql -u username -p database_name < backup_file.sql
-    ```
-
-### Employee and Department Tables
+    
+Employee and Department Tables:-
 
 employee Table -
 
@@ -402,6 +332,19 @@ Selecting the Nth Value -
    
    [Retrieves the nth highest salary record].
 
+3. Scenario: You have an `Employee` table, and you want to find the nth highest distinct salary. If there are fewer than `n` distinct salaries, the query should return `NULL`.
+
+SELECT IFNULL((SELECT DISTINCT Salary FROM Employee ORDER BY Salary DESC LIMIT n-1, 1), NULL) AS nth_HighestSalary;
+
+Description
+
+- Query Purpose: This SQL query is used to find the nth highest unique salary from the `Employee` table.
+- DISTINCT Salary: The subquery selects distinct salaries from the `Employee` table.
+- ORDER BY Salary DESC: The salaries are ordered in descending order so that the highest salaries come first.
+- LIMIT n-1, 1: The `LIMIT` clause is used to skip the first `n-1` entries and return the next one. For example, if `n` is 3, it skips the first 2 entries and returns the 3rd highest unique salary.
+- IFNULL(..., NULL): The `IFNULL` function ensures that if the subquery returns no result (i.e., there are fewer than `n` distinct salaries), the query will return `NULL` instead of an empty result.
+
+- Handling Ties: Since the query uses `DISTINCT`, it handles the case where multiple employees have the same salary by considering each unique salary value only once.
 
 Date Functions -
 
@@ -413,7 +356,6 @@ Date Functions -
 
    [Retrieves the current date].
    
-
 Joins -
 
 1. Inner join:
@@ -503,7 +445,7 @@ Aggregation and Grouping -
    
    [Counts the number of employees in each department and orders the results by count].
 
-Data Type Modification
+Data Type Modification -
 
 1. Change data type using ALTER:
    
@@ -517,7 +459,7 @@ Data Type Modification
 
    [Update the data of employee table to new set value].
 
-ACID Properties 
+ACID Properties -
 
 1. Atomicity:
    Ensures that a series of database operations either all occur, or none occur.
