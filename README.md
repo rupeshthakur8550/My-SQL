@@ -385,60 +385,70 @@ Removes spaces from the beginning and end of a string.
 SELECT TRIM('  Alright!  ');
 ```
 
-## **16. DISTINCT Keyword -**
-	This keyword is used to get the distinct records of taken column from Table.
-	Query -
-		SELECT DISTINCT COLUMN_NAME FROM TABLE_NAME;
+## **16. DISTINCT Keyword**
+This keyword is used to get the distinct records of a column from a table.
 
-18. LIKE Operator -
-	This Operator is used to check letters with the column records to match and return 
-the result which only matches.
-	Query -
-		SELECT * FROM TABLE_NAME WHERE COLUMN_NAME LIKE 'A-Z% | a-z% | A_a' 
-	// % -> column record should start with A-Z or a-z and can have infinite length or 	different words after starting letter.
-	// _ is used when you only want one letter to be filled with a-z or A-Z to match the string.
-	Example -
-		 SELECT * FROM employees WHERE name LIKE 'P_u%';
-		 +--------+------+-----------+------+
-		 | emp_id | name | design    | dept |
-		 +--------+------+-----------+------+
-	 	 |    103 | Paul | Associate | IT   |
-		 +--------+------+-----------+------+
+```sql
+SELECT DISTINCT COLUMN_NAME FROM TABLE_NAME;
+```
 
-## **18. Change Table Schema - **
+## **17. LIKE Operator**
+This operator is used to check letters with the column records to match and return the result that only matches.
 
-a. Add Column - Adds a new column to a table.
-   Query:
-    ```sql
-    ALTER TABLE users ADD age INT NOT NULL;
-    ```
-    
-b. Drop Column - Deletes a column from a table.
-   Query:
-    ```sql
-    ALTER TABLE users DROP COLUMN age;
-    ```
-    
-c. Modify Column - Changes the data type of a column.
-   Query:
-    ```sql
-    ALTER TABLE users MODIFY COLUMN name VARCHAR(150);
-    ```
-    
-d. Rename Column - Renames a column in a table.
-   Query:
-    ```sql
-    ALTER TABLE users CHANGE COLUMN old_name new_name VARCHAR(100);
-    ```
-    
-e. Rename Table - Renames a table.
-   Query:
-    ```sql
-    ALTER TABLE old_table_name RENAME TO new_table_name;
-    ```
+```sql
+SELECT * FROM TABLE_NAME WHERE COLUMN_NAME LIKE 'A-Z% | a-z% | A_a'; 
+```
+- `%` -> column record should start with `A-Z` or `a-z` and can have infinite length or different words after the starting letter.
+- `_` is used when you only want one letter to be filled with `a-z` or `A-Z` to match the string.
 
-## **19. Aggregate Functions -**
-	
+**Example:**
+```sql
+SELECT * FROM employees WHERE name LIKE 'P_u%';
+```
+
+| emp_id | name | design    | dept |
+|--------|------|-----------|------|
+|    103 | Paul | Associate | IT   |
+
+## **18. Change Table Schema**
+
+### a. Add Column
+Adds a new column to a table.
+
+```sql
+ALTER TABLE users ADD age INT NOT NULL;
+```
+
+### b. Drop Column
+Deletes a column from a table.
+
+```sql
+ALTER TABLE users DROP COLUMN age;
+```
+
+### c. Modify Column
+Changes the data type of a column.
+
+```sql
+ALTER TABLE users MODIFY COLUMN name VARCHAR(150);
+```
+
+### d. Rename Column
+Renames a column in a table.
+
+```sql
+ALTER TABLE users CHANGE COLUMN old_name new_name VARCHAR(100);
+```
+
+### e. Rename Table
+Renames a table.
+
+```sql
+ALTER TABLE old_table_name RENAME TO new_table_name;
+```
+
+## **19. Aggregate Functions**
+
 ```sql
 SELECT SUM(column_name) FROM table_name;
 SELECT MIN(column_name) FROM table_name;
