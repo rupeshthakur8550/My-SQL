@@ -162,10 +162,10 @@ CREATE TABLE TABLE_NAME (
 ```
 
 ### **d. PRIMARY KEY**
-This constraint is used for below requirements,
-		i. The PRIMARY KEY constraint uniquely identifies each record in a table.
-		ii. Primary keys must contain UNIQUE values, and cannot contain NULL values.
-		iii. A table can have only ONE primary key.
+This constraint is used for the below requirements:
+1. The PRIMARY KEY constraint uniquely identifies each record in a table.
+2. Primary keys must contain UNIQUE values, and cannot contain NULL values.
+3. A table can have only ONE primary key.
 
 ```sql
 CREATE TABLE TABLE_NAME (
@@ -182,7 +182,7 @@ CREATE TABLE TABLE_NAME (
   COLUMN_NAME2 COLUMN_TYPE2,
   ...
   COLUMN_NAMEn COLUMN_TYPEn,
-  PRIMARY KEY(COLUMN_NAME)
+  PRIMARY KEY (COLUMN_NAME)
 );
 ```
 
