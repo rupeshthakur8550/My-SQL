@@ -237,7 +237,7 @@ UPDATE users SET name = 'Johnathan Doe' WHERE email = 'john.doe@example.com';
 **Operators with WHERE clause:**
 - **Arithmetic Operators:** `+`, `-`, `*`, `/`, `%`
 - **Comparison Operators:** `=`, `!=`, `>`, `>=`, `<`, `<=`
-- **Logical Operators:** `AND`, `OR`, `NOT`, `IN`, `BETWEEN`, `ALL`, `LIKE`, `ANY`
+- **Logical Operators:** `AND`, `OR`, `IN`,`NOT IN`, `BETWEEN`, `ALL`, `LIKE`, `NOT LIKE`, `ANY`
 - **Bitwise Operators:** `&`, `|`
 
 ### b. ORDER BY
