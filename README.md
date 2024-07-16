@@ -26,7 +26,14 @@ SHOW DATABASES;
 
 - **Numeric**: `INT`, `DOUBLE`, `FLOAT`, `DECIMAL`
 - **String**: `VARCHAR`
-- **Date**
+- **Date:** `DATE(YYYY-MM-DD)`, `TIME(HH:MM:SS)`, `DATETIME(YYYY-MM-DD HH:MM:SS)`, `CURDATE()`, `CURTIME()`, `NOW()`, `DAYNAME('DATE')`, `DAYOFMONTH('DATE')`, `DAYOFWEEK('DATE')`, `MONTHNAME('DATE')`, `HOUR('TIME')`, `DATE_FORMAT('DATE', 'FORMAT')`, `DATE_ADD('DATE', INTERVAL VALUE DAY | MONTH | YEAR)`, `DATE_SUB('DATE', INTERVAL VALUE DAY | MONTH | YEAR)`, `TIMEDIFF('TIME1', 'TIME2')`
+
+**Date Examples:**
+```sql
+SELECT DATE_FORMAT(now(), '%D %a at %T'); -- Result: 16th Tue at 12:50:23
+SELECT DATE_FORMAT(now(), '%m/%d/%y'); -- Result: 07/16/24
+SELECT DATE_FORMAT(now(), '%r'); -- Result: 12:49:32 PM
+```
 
 ## **5. Create Table**
 This query is used for the creation of a table inside a selected database.
@@ -155,7 +162,10 @@ CREATE TABLE TABLE_NAME (
 ```
 
 ### **d. PRIMARY KEY**
-This constraint uniquely identifies each record in a table.
+This constraint is used for below requirements,
+		i. The PRIMARY KEY constraint uniquely identifies each record in a table.
+		ii. Primary keys must contain UNIQUE values, and cannot contain NULL values.
+		iii. A table can have only ONE primary key.
 
 ```sql
 CREATE TABLE TABLE_NAME (
@@ -201,20 +211,10 @@ CREATE TABLE TABLE_NAME (
 );
 ```
 
-## **13. Clauses**
-### **a. WHERE**
-This clause is used to select specific records based on a condition from a table.
+### **g. AUTO_INCREMENT**
 
 ```sql
-SELECT * FROM TABLE_NAME WHERE COLUMN_NAME = 'VALUE';
-DELETE FROM TABLE_NAME WHERE COLUMN_NAME = 'VALUE';
-UPDATE TABLE_NAME SET COLUMN_NAME = "VALUE" WHERE COLUMN_NAME = 'VALUE';
-```
-
-## **14. AUTO_INCREMENT**
-This feature automatically generates a unique number when a new record is inserted into a table.
-
-```sql
+-- Define a auto_increment constraint
 CREATE TABLE TABLE_NAME (
   COLUMN_NAME1 COLUMN_TYPE1 PRIMARY KEY AUTO_INCREMENT,
   COLUMN_NAME2 COLUMN_TYPE2,
@@ -223,7 +223,51 @@ CREATE TABLE TABLE_NAME (
 );
 ```
 
-## **15. ALIAS**
+## 13. Clauses
+### a. WHERE
+**Example:**
+```sql
+SELECT * FROM users WHERE email = 'john.doe@example.com';
+DELETE FROM users WHERE email = 'john.doe@example.com';
+UPDATE users SET name = 'Johnathan Doe' WHERE email = 'john.doe@example.com';
+```
+
+**Operators with WHERE clause:**
+- **Arithmetic Operators:** `+`, `-`, `*`, `/`, `%`
+- **Comparison Operators:** `=`, `!=`, `>`, `>=`, `<`, `<=`
+- **Logical Operators:** `AND`, `OR`, `NOT`, `IN`, `BETWEEN`, `ALL`, `LIKE`, `ANY`
+- **Bitwise Operators:** `&`, `|`
+
+### b. ORDER BY
+**Example:**
+```sql
+SELECT * FROM users ORDER BY name;
+SELECT * FROM users ORDER BY name DESC;
+```
+
+### c. LIMIT
+**Example:**
+```sql
+SELECT * FROM employees LIMIT 5;
+```
+
+### d. OFFSET
+**Example:**
+```sql
+SELECT * FROM employees LIMIT 5 OFFSET 10;
+
+-- OR
+
+SELECT * FROM employees LIMIT 10, 5;
+```
+
+### e. GROUP BY
+**Example:**
+```sql
+SELECT dept, COUNT(*) FROM employees GROUP BY dept;
+```
+
+## **14. ALIAS**
 This is used to give a temporary name to a column or table in a query.
 
 ```sql
@@ -238,7 +282,7 @@ SELECT employees.design AS designation FROM employees;
 | Accountant  |
 | HR          |
 
-## **16. String Functions**
+## **15. String Functions**
 ### **i. CONCAT**
 Concatenates two or more strings.
 
@@ -331,4 +375,66 @@ Removes spaces from the beginning and end of a string.
 
 ```sql
 SELECT TRIM('  Alright!  ');
+```
+
+## **16. DISTINCT Keyword -**
+	This keyword is used to get the distinct records of taken column from Table.
+	Query -
+		SELECT DISTINCT COLUMN_NAME FROM TABLE_NAME;
+
+18. LIKE Operator -
+	This Operator is used to check letters with the column records to match and return 
+the result which only matches.
+	Query -
+		SELECT * FROM TABLE_NAME WHERE COLUMN_NAME LIKE 'A-Z% | a-z% | A_a' 
+	// % -> column record should start with A-Z or a-z and can have infinite length or 	different words after starting letter.
+	// _ is used when you only want one letter to be filled with a-z or A-Z to match the string.
+	Example -
+		 SELECT * FROM employees WHERE name LIKE 'P_u%';
+		 +--------+------+-----------+------+
+		 | emp_id | name | design    | dept |
+		 +--------+------+-----------+------+
+	 	 |    103 | Paul | Associate | IT   |
+		 +--------+------+-----------+------+
+
+## **18. Change Table Schema - **
+
+a. Add Column - Adds a new column to a table.
+   Query:
+    ```sql
+    ALTER TABLE users ADD age INT NOT NULL;
+    ```
+    
+b. Drop Column - Deletes a column from a table.
+   Query:
+    ```sql
+    ALTER TABLE users DROP COLUMN age;
+    ```
+    
+c. Modify Column - Changes the data type of a column.
+   Query:
+    ```sql
+    ALTER TABLE users MODIFY COLUMN name VARCHAR(150);
+    ```
+    
+d. Rename Column - Renames a column in a table.
+   Query:
+    ```sql
+    ALTER TABLE users CHANGE COLUMN old_name new_name VARCHAR(100);
+    ```
+    
+e. Rename Table - Renames a table.
+   Query:
+    ```sql
+    ALTER TABLE old_table_name RENAME TO new_table_name;
+    ```
+
+## **19. Aggregate Functions -**
+	
+```sql
+SELECT SUM(column_name) FROM table_name;
+SELECT MIN(column_name) FROM table_name;
+SELECT MAX(column_name) FROM table_name;
+SELECT COUNT(column_name) FROM table_name;
+SELECT AVG(column_name) FROM table_name;
 ```
