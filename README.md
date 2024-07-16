@@ -416,12 +416,20 @@ SELECT * FROM employees WHERE name LIKE 'P_u%';
 Adds a new column to a table.
 
 ```sql
+ALTER TABLE table_name ADD column_name column_type [constraint];
+```
+**Example:**
+```sql
 ALTER TABLE users ADD age INT NOT NULL;
 ```
 
 ### b. Drop Column
 Deletes a column from a table.
 
+```sql
+ALTER TABLE table_name DROP COLUMN column_name;
+```
+**Example:**
 ```sql
 ALTER TABLE users DROP COLUMN age;
 ```
@@ -430,12 +438,20 @@ ALTER TABLE users DROP COLUMN age;
 Changes the data type of a column.
 
 ```sql
+ALTER TABLE table_name MODIFY COLUMN column_name new_column_type [constraint];
+```
+**Example:**
+```sql
 ALTER TABLE users MODIFY COLUMN name VARCHAR(150);
 ```
 
 ### d. Rename Column
 Renames a column in a table.
 
+```sql
+ALTER TABLE table_name CHANGE COLUMN old_column_name new_column_name column_type;
+```
+**Example:**
 ```sql
 ALTER TABLE users CHANGE COLUMN old_name new_name VARCHAR(100);
 ```
@@ -445,6 +461,10 @@ Renames a table.
 
 ```sql
 ALTER TABLE old_table_name RENAME TO new_table_name;
+```
+**Example:**
+```sql
+ALTER TABLE employees RENAME TO staff;
 ```
 
 ## **19. Aggregate Functions**
