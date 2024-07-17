@@ -481,25 +481,24 @@ SELECT AVG(column_name) FROM table_name;
 
 ```sql
 SELECT COLUMN_NAMES, 
-		CASE
-			WHEN COLUMN_NAME CONDITION THEN VALUE
-			ELSE VALUE
-		END AS NEW_COLUMN_NAME	
-		FROM TABLE_NAME;
+	CASE
+		WHEN COLUMN_NAME CONDITION THEN VALUE
+		ELSE VALUE
+	END AS NEW_COLUMN_NAME	
+FROM TABLE_NAME;
 ```
 
 Example - LeetCode (1661)
 
 ``` sql
 SELECT machine_id,ROUND(
-		AVG(
-        	CASE 
-            		WHEN activity_type = 'start' THEN -timestamp
-            		ELSE timestamp
-        	END
-    		) * 2,
-   		 3 
-	) AS processing_time FROM Activity GROUP BY machine_id;
+	AVG(
+	CASE 
+		WHEN activity_type = 'start' THEN -timestamp
+		ELSE timestamp
+	END
+	) * 2,3)
+AS processing_time FROM Activity GROUP BY machine_id;
 ```
 Note for question - 2 is the partition as which start and end makes 1 partition here we have 2 partition for each
 
