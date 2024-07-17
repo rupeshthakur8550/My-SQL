@@ -24,7 +24,7 @@ SHOW DATABASES;
 ## **4. Data Types in MySQL**
 **Definition**: An attribute that specifies the type of data in a column of our database table. The most widely used data types are:
 
-- **Numeric**: `INT`, `DOUBLE`, `FLOAT`, `DECIMAL`
+- **Numeric**: `INT`,`BIGINT(to store value more than 8 length)`, `DOUBLE`, `FLOAT`, `DECIMAL`
 - **String**: `VARCHAR`
 - **Date:** `DATE(YYYY-MM-DD)`, `TIME(HH:MM:SS)`, `DATETIME(YYYY-MM-DD HH:MM:SS)`, `CURDATE()`, `CURTIME()`, `NOW()`, `DAYNAME('DATE')`, `DAYOFMONTH('DATE')`, `DAYOFWEEK('DATE')`, `MONTHNAME('DATE')`, `HOUR('TIME')`, `DATE_FORMAT('DATE', 'FORMAT')`, `DATE_ADD('DATE', INTERVAL VALUE DAY | MONTH | YEAR)`, `DATE_SUB('DATE', INTERVAL VALUE DAY | MONTH | YEAR)`, `TIMEDIFF('TIME1', 'TIME2')`
 
@@ -237,7 +237,7 @@ UPDATE users SET name = 'Johnathan Doe' WHERE email = 'john.doe@example.com';
 **Operators with WHERE clause:**
 - **Arithmetic Operators:** `+`, `-`, `*`, `/`, `%`
 - **Comparison Operators:** `=`, `!=`, `>`, `>=`, `<`, `<=`
-- **Logical Operators:** `AND`, `OR`, `IN`,`NOT IN`, `BETWEEN`, `ALL`, `LIKE`, `NOT LIKE`, `ANY`
+- **Logical Operators:** `AND`, `OR`, `IN`,`NOT IN`, `BETWEEN`, `ALL`, `IS NULL`, `LIKE`, `NOT LIKE`, `ANY`
 - **Bitwise Operators:** `&`, `|`
 
 ### b. ORDER BY
@@ -476,3 +476,33 @@ SELECT MAX(column_name) FROM table_name;
 SELECT COUNT(column_name) FROM table_name;
 SELECT AVG(column_name) FROM table_name;
 ```
+
+## **20. CASE in MY SQL**
+
+```sql
+SELECT COLUMN_NAMES, 
+		CASE
+			WHEN COLUMN_NAME CONDITION THEN VALUE
+			ELSE VALUE
+		END AS NEW_COLUMN_NAME	
+		FROM TABLE_NAME;
+```
+
+Example - LeetCode (1661)
+
+``` sql
+SELECT machine_id,ROUND(
+		AVG(
+        	CASE 
+            		WHEN activity_type = 'start' THEN -timestamp
+            		ELSE timestamp
+        	END
+    		) * 2,
+   		 3 
+	) AS processing_time FROM Activity GROUP BY machine_id;
+```
+Note for question - 2 is the partition as which start and end makes 1 partition here we have 2 partition for each
+
+Note - You can add multiple WHEN as per requirements and skip ELSE.
+
+
