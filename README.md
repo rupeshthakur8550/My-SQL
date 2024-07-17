@@ -59,7 +59,7 @@ CREATE TABLE TABLE_NAME (
 );
 ```
 
-**Constraints : -**
+### **Constraints : -**
 ### **a. NOT NULL**
 This constraint ensures that the column cannot have `NULL` values.
 
@@ -196,6 +196,7 @@ Example -
 DESC employees;
 ```
 Result - 
+```
 +-------------+--------------+------+-----+---------+----------------+
 | Field       | Type         | Null | Key | Default | Extra          |
 +-------------+--------------+------+-----+---------+----------------+
@@ -208,6 +209,7 @@ Result -
 | salary      | int          | NO   |     | NULL    |                |
 | department  | varchar(20)  | NO   |     | NULL    |                |
 +-------------+--------------+------+-----+---------+----------------+
+```
 
 ## **7. Adding Data into Table**
 This query is used to add data into a Table.
@@ -254,6 +256,7 @@ SELECT COLUMN_NAME1, COLUMN_NAME2, ... FROM TABLE_NAME;
 SELECT * FROM employees;
 ```
 Result -
+```
 +----+---------------+---------------------------+------------+-------------+------------+--------+------------+
 | id | name          | email                     | mobile_no  | employee_id | manager_id | salary | department |
 +----+---------------+---------------------------+------------+-------------+------------+--------+------------+
@@ -270,6 +273,7 @@ Result -
 | 23 | Ivy Collins   | ivy.collins@example.com   | 1234567899 |          22 |          6 |  48000 | Finance    |
 | 24 | Jack Lewis    | jack.lewis@example.com    | 2345678909 |          23 |          6 |  54000 | Marketing  |
 +----+---------------+---------------------------+------------+-------------+------------+--------+------------+
+```
 
 ## **9. Update on Table**
 This query is used to update or modify existing data (records) in a required table.
@@ -566,6 +570,7 @@ Example -
 SELECT department, COUNT(*) AS employee_count FROM employees GROUP BY department;
 ```
 Result -
+```
 +------------+----------------+
 | department | employee_count |
 +------------+----------------+
@@ -574,6 +579,7 @@ Result -
 | Finance    |              3 |
 | Marketing  |              3 |
 +------------+----------------+
+```
 
 ## **14. String Functions**
 ### **i. CONCAT**
@@ -694,6 +700,7 @@ SELECT * FROM TABLE_NAME WHERE COLUMN_NAME LIKE 'A-Z% | a-z% | A_a';
  SELECT * FROM employees WHERE name LIKE '_a%';
 ```
 Resukt -
+```
 +----+------------+------------------------+------------+-------------+------------+--------+------------+
 | id | name       | email                  | mobile_no  | employee_id | manager_id | salary | department |
 +----+------------+------------------------+------------+-------------+------------+--------+------------+
@@ -701,6 +708,7 @@ Resukt -
 | 18 | Dana White | dana.white@example.com | 6789012345 |          17 |          3 |  63000 | IT         |
 | 24 | Jack Lewis | jack.lewis@example.com | 2345678909 |          23 |          6 |  54000 | Marketing  |
 +----+------------+------------------------+------------+-------------+------------+--------+------------+
+```
 
 ## **17. Change Table Schema**
 
