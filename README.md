@@ -176,7 +176,7 @@ CREATE TABLE employees (
     employee_id INT,
     manager_id INT,
     salary INT NOT NULL,
-    department VARCHAR(20) NOT NULL,
+    department VARCHAR(20) NOT NULL DEFAULT 'Management',
     PRIMARY KEY (id),
     CONSTRAINT chk_mobile_no CHECK (LENGTH(CAST(mobile_no AS CHAR)) >= 10),
     CONSTRAINT chk_employee_id CHECK (employee_id >= 12)
