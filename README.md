@@ -809,7 +809,7 @@ SELECT machine_id,ROUND(
 	) * 2,3)
 AS processing_time FROM Activity GROUP BY machine_id;
 
-Note for question - 2 is the partition as which start and end makes 1 partition here we have 2 partition for each
+Note for question : 2 is the partition as start and end makes 1 partition here we have 2 partition for each
 ```
 **Note - You can add multiple WHEN as per requirements and skip ELSE.**
 
