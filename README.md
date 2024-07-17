@@ -7,11 +7,21 @@ This query is used for the creation of a database in which we create tables.
 CREATE DATABASE DATABASE_NAME;
 ```
 
+Example - 
+```sql
+CREATE DATABASE Practice;
+```
+
 ## **2. Use Database**
 This query is used for selecting a database in which we want to perform some actions.
 
 ```sql
 USE DATABASE_NAME;
+```
+
+Example - 
+```sql
+USE Practice;
 ```
 
 ## **3. Show Databases**
@@ -47,81 +57,9 @@ CREATE TABLE TABLE_NAME (
   ...
   COLUMN_NAMEn COLUMN_TYPEn
 );
-
--- Example:
-CREATE TABLE users (
-  id INT AUTO_INCREMENT,
-  name VARCHAR(100),
-  email VARCHAR(100)
-);
 ```
 
-## **6. Describe Table Schema**
-This query is used to get to know the schema of tables.
-
-```sql
-DESC TABLE_NAME;
-
--- Example:
-DESC employees;
-```
-
-| Field  | Type         | Null | Key | Default   | Extra          |
-|--------|--------------|------|-----|-----------|----------------|
-| emp_id | int          | NO   | PRI | NULL      | auto_increment |
-| name   | varchar(100) | NO   |     | NULL      |                |
-| design | varchar(50)  | YES  |     | Probation |                |
-| dept   | varchar(50)  | YES  |     | NULL      |                |
-
-## **7. Adding Data into Table**
-This query is used to add data into a table.
-
-```sql
-INSERT INTO TABLE_NAME VALUES
-  (VALUE1, VALUE2, ...);
-
--- Or:
-
-INSERT INTO TABLE_NAME (COLUMN_NAME1, COLUMN_NAME2, ...) VALUES
-  (DATA1, DATA2, ...);
-```
-
-## **8. Reading from Database**
-This query is used to get data from a required table.
-
-```sql
-SELECT * FROM TABLE_NAME;  -- To get all columns data
-
--- Or:
-
-SELECT COLUMN_NAME1, COLUMN_NAME2, ... FROM TABLE_NAME;
-```
-
-## **9. Update on Table**
-This query is used to update or modify existing data (records) in a required table.
-
-```sql
-UPDATE TABLE_NAME SET COLUMN_NAME = "VALUE" WHERE COLUMN_NAME = "RECORD_VALUE";
-```
-
-## **10. Delete on Table**
-This query is used to delete records from a required table.
-
-```sql
-DELETE FROM TABLE_NAME WHERE COLUMN_NAME = "RECORD_VALUE";
-```
-
-**Note**: If the `WHERE` clause is omitted, all records will be deleted.
-
-## **11. Delete Table or Database**
-This query is used to delete an entire table or database along with its schema.
-
-```sql
-DROP TABLE TABLE_NAME;
-DROP DATABASE DATABASE_NAME;
-```
-
-## **12. Constraints**
+**Constraints : -**
 ### **a. NOT NULL**
 This constraint ensures that the column cannot have `NULL` values.
 
@@ -187,6 +125,10 @@ CREATE TABLE TABLE_NAME (
 ```
 
 ### **e. FOREIGN KEY**
+This constraint is used for the below requirements:
+i. The FOREIGN KEY constraint is used to link two tables together.
+ii. A FOREIGN KEY in one table points to a PRIMARY KEY in another table, ensuring referential integrity.
+iii. FOREIGN KEYs can have duplicate values and can contain NULL values.
 
 ```sql
 -- Define a foreign key
@@ -224,14 +166,159 @@ CREATE TABLE TABLE_NAME (
 );
 ```
 
-## 13. Clauses
+Example -
+``` sql
+CREATE TABLE employees (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    mobile_no BIGINT,
+    employee_id INT,
+    manager_id INT,
+    salary INT NOT NULL,
+    department VARCHAR(20) NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT chk_mobile_no CHECK (LENGTH(CAST(mobile_no AS CHAR)) >= 10),
+    CONSTRAINT chk_employee_id CHECK (employee_id >= 12)
+    FOREIGN KEY (department) REFERENCES departments(dept_id)
+);
+```
+
+## **6. Describe Table Schema**
+This query is used to get to know the schema of tables.
+
+```sql
+DESC TABLE_NAME;
+```
+
+Example -
+``` sql
+DESC employees;
+```
+Result - 
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int          | NO   | PRI | NULL    | auto_increment |
+| name        | varchar(100) | NO   |     | NULL    |                |
+| email       | varchar(100) | YES  | UNI | NULL    |                |
+| mobile_no   | bigint       | YES  |     | NULL    |                |
+| employee_id | int          | YES  |     | NULL    |                |
+| manager_id  | int          | YES  |     | NULL    |                |
+| salary      | int          | NO   |     | NULL    |                |
+| department  | varchar(20)  | NO   |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+
+## **7. Adding Data into Table**
+This query is used to add data into a Table.
+
+```sql
+INSERT INTO TABLE_NAME VALUES
+  (VALUE1, VALUE2, ...);
+
+-- Or:
+
+INSERT INTO TABLE_NAME (COLUMN_NAME1, COLUMN_NAME2, ...) VALUES
+  (DATA1, DATA2, ...);
+```
+Ezample -
+
+``` sql
+INSERT INTO employees (name, email, mobile_no, employee_id, manager_id, salary, department) VALUES
+('John Doe', 'john.doe@example.com', 1234567890, 12, 1, 50000, 'HR'),
+('Jane Smith', 'jane.smith@example.com', 2345678901, 13, 1, 60000, 'IT'),
+('Alice Johnson', 'alice.johnson@example.com', 3456789012, 14, 2, 55000, 'Finance'),
+('Bob Brown', 'bob.brown@example.com', 4567890123, 15, 2, 52000, 'Marketing'),
+('Charlie Davis', 'charlie.davis@example.com', 5678901234, 16, 3, 48000, 'HR'),
+('Dana White', 'dana.white@example.com', 6789012345, 17, 3, 63000, 'IT'),
+('Evan Green', 'evan.green@example.com', 7890123456, 18, 4, 49000, 'Finance'),
+('Fiona Black', 'fiona.black@example.com', 8901234567, 19, 4, 57000, 'Marketing'),
+('George Harris', 'george.harris@example.com', 9012345678, 20, 5, 52000, 'HR'),
+('Holly Evans', 'holly.evans@example.com', 9123456789, 21, 5, 61000, 'IT'),
+('Ivy Collins', 'ivy.collins@example.com', 1234567899, 22, 6, 48000, 'Finance'),
+('Jack Lewis', 'jack.lewis@example.com', 2345678909, 23, 6, 54000, 'Marketing');
+```
+
+## **8. Reading from Database**
+This query is used to get data from a required table.
+
+```sql
+SELECT * FROM TABLE_NAME;  -- To get all columns data
+
+-- Or:
+
+SELECT COLUMN_NAME1, COLUMN_NAME2, ... FROM TABLE_NAME;
+```
+
+``` sql
+SELECT * FROM employees;
+```
+Result -
++----+---------------+---------------------------+------------+-------------+------------+--------+------------+
+| id | name          | email                     | mobile_no  | employee_id | manager_id | salary | department |
++----+---------------+---------------------------+------------+-------------+------------+--------+------------+
+| 13 | John Doe      | john.doe@example.com      | 1234567890 |          12 |          1 |  50000 | HR         |
+| 14 | Jane Smith    | jane.smith@example.com    | 2345678901 |          13 |          1 |  60000 | IT         |
+| 15 | Alice Johnson | alice.johnson@example.com | 3456789012 |          14 |          2 |  55000 | Finance    |
+| 16 | Bob Brown     | bob.brown@example.com     | 4567890123 |          15 |          2 |  52000 | Marketing  |
+| 17 | Charlie Davis | charlie.davis@example.com | 5678901234 |          16 |          3 |  48000 | HR         |
+| 18 | Dana White    | dana.white@example.com    | 6789012345 |          17 |          3 |  63000 | IT         |
+| 19 | Evan Green    | evan.green@example.com    | 7890123456 |          18 |          4 |  49000 | Finance    |
+| 20 | Fiona Black   | fiona.black@example.com   | 8901234567 |          19 |          4 |  57000 | Marketing  |
+| 21 | George Harris | george.harris@example.com | 9012345678 |          20 |          5 |  52000 | HR         |
+| 22 | Holly Evans   | holly.evans@example.com   | 9123456789 |          21 |          5 |  61000 | IT         |
+| 23 | Ivy Collins   | ivy.collins@example.com   | 1234567899 |          22 |          6 |  48000 | Finance    |
+| 24 | Jack Lewis    | jack.lewis@example.com    | 2345678909 |          23 |          6 |  54000 | Marketing  |
++----+---------------+---------------------------+------------+-------------+------------+--------+------------+
+
+## **9. Update on Table**
+This query is used to update or modify existing data (records) in a required table.
+
+```sql
+UPDATE TABLE_NAME SET COLUMN_NAME = "VALUE" WHERE COLUMN_NAME = "RECORD_VALUE";
+```
+
+Example -
+```sql
+UPDATE employees SET mobile_no = 9284438702 WHERE name = 'John Doe';
+```
+
+## **10. Delete on Table**
+This query is used to delete records from a required table.
+
+```sql
+DELETE FROM TABLE_NAME WHERE COLUMN_NAME = "RECORD_VALUE";
+```
+
+Example -
+```sql
+DELETE FROM employees WHERE email = "jack.lewis@example.com";
+```
+
+**Note**: If the `WHERE` clause is omitted, all records will be deleted.
+
+## **11. Delete Table or Database**
+This query is used to delete an entire table or database along with its schema.
+
+```sql
+DROP TABLE TABLE_NAME;
+DROP DATABASE DATABASE_NAME;
+```
+
+Example -
+```sql
+DROP TABLE employees;
+DROP DATABASE Practice;
+```
+
+## 12. Clauses
 ### a. WHERE
 This clause is used to select the particular record based on condition from Table.
 **Example:**
 ```sql
-SELECT * FROM users WHERE email = 'john.doe@example.com';
-DELETE FROM users WHERE email = 'john.doe@example.com';
-UPDATE users SET name = 'Johnathan Doe' WHERE email = 'john.doe@example.com';
+SELECT * FROM employees WHERE email = 'john.doe@example.com';
+DELETE FROM employees WHERE email = 'john.doe@example.com';
+UPDATE employees SET name = 'Johnathan Doe' WHERE email = 'john.doe@example.com';
 ```
 
 **Operators with WHERE clause:**
@@ -240,159 +327,360 @@ UPDATE users SET name = 'Johnathan Doe' WHERE email = 'john.doe@example.com';
 - **Logical Operators:** `AND`, `OR`, `IN`,`NOT IN`, `BETWEEN`, `ALL`, `IS NULL`, `LIKE`, `NOT LIKE`, `ANY`
 - **Bitwise Operators:** `&`, `|`
 
+Examples for Operators- 
+### Arithmetic Operators
+
+1. **Addition (`+`)**: Calculate the total salary of two employees.
+   ```sql
+   SELECT name, salary + 5000 AS increased_salary
+   FROM employees
+   WHERE name = 'John Doe';
+   ```
+
+2. **Subtraction (`-`)**: Calculate the difference between the highest and lowest salaries.
+   ```sql
+   SELECT MAX(salary) - MIN(salary) AS salary_difference
+   FROM employees;
+   ```
+
+3. **Multiplication (`*`)**: Calculate the annual salary of an employee.
+   ```sql
+   SELECT name, salary * 12 AS annual_salary
+   FROM employees
+   WHERE name = 'Jane Smith';
+   ```
+
+4. **Division (`/`)**: Calculate the average monthly salary of an employee.
+   ```sql
+   SELECT name, salary / 12 AS average_monthly_salary
+   FROM employees
+   WHERE name = 'Alice Johnson';
+   ```
+
+5. **Modulus (`%`)**: Find employees whose employee_id is an odd number.
+   ```sql
+   SELECT name
+   FROM employees
+   WHERE employee_id % 2 != 0;
+   ```
+
+### Comparison Operators
+
+1. **Equal (`=`)**: Find the employee with a specific employee_id.
+   ```sql
+   SELECT *
+   FROM employees
+   WHERE employee_id = 12;
+   ```
+
+2. **Not Equal (`!=`)**: Find employees not in the IT department.
+   ```sql
+   SELECT *
+   FROM employees
+   WHERE department != 'IT';
+   ```
+
+3. **Greater Than (`>`)**: Find employees with a salary greater than 50000.
+   ```sql
+   SELECT *
+   FROM employees
+   WHERE salary > 50000;
+   ```
+
+4. **Greater Than or Equal (`>=`)**: Find employees with a salary greater than or equal to 60000.
+   ```sql
+   SELECT *
+   FROM employees
+   WHERE salary >= 60000;
+   ```
+
+5. **Less Than (`<`)**: Find employees with a salary less than 50000.
+   ```sql
+   SELECT *
+   FROM employees
+   WHERE salary < 50000;
+   ```
+
+6. **Less Than or Equal (`<=`)**: Find employees with a salary less than or equal to 55000.
+   ```sql
+   SELECT *
+   FROM employees
+   WHERE salary <= 55000;
+   ```
+
+### Logical Operators
+
+1. **AND**: Find employees in the IT department with a salary greater than 60000.
+   ```sql
+   SELECT *
+   FROM employees
+   WHERE department = 'IT' AND salary > 60000;
+   ```
+
+2. **OR**: Find employees in either the HR or Finance departments.
+   ```sql
+   SELECT *
+   FROM employees
+   WHERE department = 'HR' OR department = 'Finance';
+   ```
+
+3. **IN**: Find employees in specified departments.
+   ```sql
+   SELECT *
+   FROM employees
+   WHERE department IN ('HR', 'IT', 'Finance');
+   ```
+
+4. **NOT IN**: Find employees not in specified departments.
+   ```sql
+   SELECT *
+   FROM employees
+   WHERE department NOT IN ('HR', 'IT', 'Finance');
+   ```
+
+5. **BETWEEN**: Find employees with a salary between 50000 and 60000.
+   ```sql
+   SELECT *
+   FROM employees
+   WHERE salary BETWEEN 50000 AND 60000;
+   ```
+
+6. **ALL**: Find employees with a salary greater than all salaries in the HR department.
+   ```sql
+   SELECT *
+   FROM employees
+   WHERE salary > ALL (SELECT salary FROM employees WHERE department = 'HR');
+   ```
+
+7. **IS NULL**: Find employees with no assigned manager.
+   ```sql
+   SELECT *
+   FROM employees
+   WHERE manager_id IS NULL;
+   ```
+
+8. **LIKE**: Find employees whose email ends with 'example.com'.
+   ```sql
+   SELECT *
+   FROM employees
+   WHERE email LIKE '%@example.com';
+   ```
+
+9. **NOT LIKE**: Find employees whose email does not end with 'example.com'.
+   ```sql
+   SELECT *
+   FROM employees
+   WHERE email NOT LIKE '%@example.com';
+   ```
+
+10. **ANY**: Find employees with a salary greater than any employee in the HR department.
+    ```sql
+    SELECT *
+    FROM employees
+    WHERE salary > ANY (SELECT salary FROM employees WHERE department = 'HR');
+    ```
+
+### Bitwise Operators
+
+1. **Bitwise AND (`&`)**: Find employees with a specific bit pattern in their employee_id.
+   ```sql
+   SELECT *
+   FROM employees
+   WHERE employee_id & 1 = 1; -- Check if the least significant bit is set (odd employee_id)
+   ```
+
+2. **Bitwise OR (`|`)**: Use bitwise OR to set a specific bit in an employee_id.
+   ```sql
+   SELECT name, employee_id | 2 AS modified_employee_id
+   FROM employees;
+   ```
+   
 ### b. ORDER BY
 This clause is used to arrange the result in ascending or descending order which is generated by select query.
-**Example:**
 ```sql
-SELECT * FROM users ORDER BY name;
-SELECT * FROM users ORDER BY name DESC;
+SELECT * FROM TBALE_NAME ORDER BY COLUMN_NAME;
+SELECT * FROM TABLE_NAME ORDER BY COLUMN_NAME DESC;
+```
+
+Example -
+```sql
+SELECT * FROM employees ORDER BY name;
+SELECT * FROM employees ORDER BY salary DESC;
 ```
 
 ### c. LIMIT
 This clause is used to add limitations to records fetch for select query.
-**Example:**
+```sql
+SELECT * FROM TABLE_NAME LIMIT VALUE;
+```
+
+Example - 
 ```sql
 SELECT * FROM employees LIMIT 5;
+Result returns top 5 records
 ```
 
 ### d. OFFSET
 This clause is used to specify from which row we want the data to be retrieved.
-**Example:**
 ```sql
-SELECT * FROM employees LIMIT 5 OFFSET 10;
+SELECT * FROM TABLE_NAME LIMIT VALUE OFFSET VALUE;
 
 -- OR
 
-SELECT * FROM employees LIMIT 10, 5;
+SELECT * FROM TABLE_NAME LIMIT OFFSET_VALUE, VALUE;
+```
+
+Example -
+``` sql
+SELECT * FROM employees ORDER BY salary LIMIT 1 OFFSET 4;
+
+-- OR
+
+SELECT * FROM employees ORDER BY salary LIMIT 4, 1;
+Formula Nth record - LIMIT N-1, 1; OR LIMIT 1 OFFSET N-1;
 ```
 
 ### e. GROUP BY
 This clause is used to grouping the result generated by select query which is also distinct by default.
-
-**Example:**
 ```sql
-SELECT dept, COUNT(*) FROM employees GROUP BY dept;
-```
-Note - COLUMN_NAME must be same on both side and also if you are using more than one COLUMN_NAME then add all of them into group by side as well otherwise it throws error
-
-## **14. ALIAS**
-This is used to give a temporary name to a column or table in a query.
-
-```sql
-SELECT employees.design AS designation FROM employees;
+SELECT COLUMN_NAME, COUNT(*) FROM TABLE_NAME GROUP BY COLUMN_NAME;
 ```
 
-| designation |
-|-------------|
-| Manager     |
-| Manager     |
-| Associate   |
-| Accountant  |
-| HR          |
+Example -
+```sql
+SELECT department, COUNT(*) FROM employees GROUP BY department;
+```
 
-## **15. String Functions**
+Note - 
+1. COLUMN_NAME must be same on both side and also if you are using more than one COLUMN_NAME then add all of them into group by side as well otherwise it throws error.
+2. It return distinct record by default.
+
+## **13. ALIAS**
+This is used to give a temporary name to a column in a query.
+```sql
+SELECT COLUMN_NAME AS REFERENCE_COLUMN_NAME FROM TABLE_NAME;
+```
+
+Example -
+``` sql
+SELECT department, COUNT(*) AS employee_count FROM employees GROUP BY department;
+```
+Result -
++------------+----------------+
+| department | employee_count |
++------------+----------------+
+| HR         |              3 |
+| IT         |              3 |
+| Finance    |              3 |
+| Marketing  |              3 |
++------------+----------------+
+
+## **14. String Functions**
 ### **i. CONCAT**
 Concatenates two or more strings.
 
 ```sql
-SELECT CONCAT('Hello', ' World');
-SELECT CONCAT(COLUMN_NAME1, COLUMN_NAME2) AS TEMP_NAME FROM TABLE_NAME;
+SELECT CONCAT('Hello',' World'); -- Result: Hello World
 ```
 
 ### **ii. CONCAT_WS**
 Concatenates strings with a separator.
 
 ```sql
-SELECT CONCAT_WS(',', 'Hello', 'World');
-SELECT CONCAT_WS(',', COLUMN_NAME1, COLUMN_NAME2) AS TEMP_NAME FROM TABLE_NAME;
+SELECT CONCAT_WS(',', 'Hello', ' World'); -- Result: Hello, World
 ```
 
 ### **iii. LENGTH OR CHAR_LENGTH**
 Returns the length of a string.
 
 ```sql
-SELECT LENGTH('Hello World');
-SELECT CHAR_LENGTH('Hello World');
+SELECT LENGTH('Hello World'); -- Result: 11
+SELECT CHAR_LENGTH('Hello World'); -- Result: 11
 ```
 
 ### **iv. SUBSTRING**
 Extracts a substring from a string.
 
 ```sql
-SELECT SUBSTRING('Hello World', 1, 5);
+SELECT SUBSTRING('Hello World', 1, 5); -- Result:  Hello
 ```
 
 ### **v. UPPER**
 Converts a string to uppercase.
 
 ```sql
-SELECT UPPER('Hello World');
+SELECT UPPER('Hello World'); -- Result: HELLO WORLD
 ```
 
 ### **vi. LOWER**
-Converts a string to lowercase.
+Converts a string to lowercase. 
 
 ```sql
-SELECT LOWER('Hello World');
+SELECT LOWER('Hello World'); -- Result: hello world
 ```
 
 ### **vii. REPLACE**
 Replaces all occurrences of a substring within a string.
 
 ```sql
-SELECT REPLACE('Hello World', 'World', 'Everyone');
+SELECT REPLACE('Hello World', 'World', 'Everyone'); -- Result:  Hello Everyone
 ```
 
 ### **viii. REVERSE**
 Reverses the string.
 
 ```sql
-SELECT REVERSE('Everyone');
+SELECT REVERSE('Everyone'); -- Result:  enoyrevE
 ```
 
 ### **ix. INSERT**
 Inserts a string into another string at a specified position.
 
 ```sql
-SELECT INSERT('Hello Wassup', 6, 0, 'Prakash');
+SELECT INSERT('Hello Wassup', 6, 0, ' Prakash'); -- Result:  Hello Prakash Wassup 
 ```
 
 ### **x. LEFT**
 Returns the leftmost characters from a string.
 
 ```sql
-SELECT LEFT('Abcdefghij', 3);
+SELECT LEFT('Abcdefghij', 3); -- Result: Abc 
 ```
 
 ### **xi. RIGHT**
 Returns the rightmost characters from a string.
 
 ```sql
-SELECT RIGHT('Abcdefghij', 4);
+SELECT RIGHT('Abcdefghij', 4); -- ghij
 ```
 
 ### **xii. REPEAT**
 Repeats a string a specified number of times.
 
 ```sql
-SELECT REPEAT('o', 5);
+SELECT REPEAT('o', 5); -- Result: ooooo
 ```
 
 ### **xiii. TRIM**
 Removes spaces from the beginning and end of a string.
 
 ```sql
-SELECT TRIM('  Alright!  ');
+SELECT TRIM('  Alright!  '); -- Result: Alright 
 ```
 
-## **16. DISTINCT Keyword**
+## **15. DISTINCT Keyword**
 This keyword is used to get the distinct records of a column from a table.
 
 ```sql
 SELECT DISTINCT COLUMN_NAME FROM TABLE_NAME;
 ```
 
-## **17. LIKE Operator**
+Example -
+```sql
+SELECT DISTINCT department FROM employees;
+```
+
+## **16. LIKE Operator**
 This operator is used to check letters with the column records to match and return the result that only matches.
 
 ```sql
@@ -403,14 +691,18 @@ SELECT * FROM TABLE_NAME WHERE COLUMN_NAME LIKE 'A-Z% | a-z% | A_a';
 
 **Example:**
 ```sql
-SELECT * FROM employees WHERE name LIKE 'P_u%';
+ SELECT * FROM employees WHERE name LIKE '_a%';
 ```
+Resukt -
++----+------------+------------------------+------------+-------------+------------+--------+------------+
+| id | name       | email                  | mobile_no  | employee_id | manager_id | salary | department |
++----+------------+------------------------+------------+-------------+------------+--------+------------+
+| 14 | Jane Smith | jane.smith@example.com | 2345678901 |          13 |          1 |  60000 | IT         |
+| 18 | Dana White | dana.white@example.com | 6789012345 |          17 |          3 |  63000 | IT         |
+| 24 | Jack Lewis | jack.lewis@example.com | 2345678909 |          23 |          6 |  54000 | Marketing  |
++----+------------+------------------------+------------+-------------+------------+--------+------------+
 
-| emp_id | name | design    | dept |
-|--------|------|-----------|------|
-|    103 | Paul | Associate | IT   |
-
-## **18. Change Table Schema**
+## **17. Change Table Schema**
 
 ### a. Add Column
 Adds a new column to a table.
@@ -420,7 +712,7 @@ ALTER TABLE table_name ADD column_name column_type [constraint];
 ```
 **Example:**
 ```sql
-ALTER TABLE users ADD age INT NOT NULL;
+ALTER TABLE empployees ADD HR_id BIGINT NOT NULL;
 ```
 
 ### b. Drop Column
@@ -431,29 +723,29 @@ ALTER TABLE table_name DROP COLUMN column_name;
 ```
 **Example:**
 ```sql
-ALTER TABLE users DROP COLUMN age;
+ALTER TABLE employees DROP COLUMN HR_id;
 ```
 
 ### c. Modify Column
 Changes the data type of a column.
 
 ```sql
-ALTER TABLE table_name MODIFY COLUMN column_name new_column_type [constraint];
+ALTER TABLE table_name MODIFY column_name new_column_type [constraint];
 ```
 **Example:**
 ```sql
-ALTER TABLE users MODIFY COLUMN name VARCHAR(150);
+ALTER TABLE employees MODIFY mobile_no INT;
 ```
 
 ### d. Rename Column
 Renames a column in a table.
 
 ```sql
-ALTER TABLE table_name CHANGE COLUMN old_column_name new_column_name column_type;
+ALTER TABLE table_name CHANGE old_column_name new_column_name column_type;
 ```
 **Example:**
 ```sql
-ALTER TABLE users CHANGE COLUMN old_name new_name VARCHAR(100);
+ALTER TABLE employees CHANGE department dept_id VARCHAR(100);
 ```
 
 ### e. Rename Table
@@ -467,7 +759,7 @@ ALTER TABLE old_table_name RENAME TO new_table_name;
 ALTER TABLE employees RENAME TO staff;
 ```
 
-## **19. Aggregate Functions**
+## **18. Aggregate Functions**
 
 ```sql
 SELECT SUM(column_name) FROM table_name;
@@ -477,7 +769,16 @@ SELECT COUNT(column_name) FROM table_name;
 SELECT AVG(column_name) FROM table_name;
 ```
 
-## **20. CASE in MY SQL**
+Examples -
+
+```sql
+SELECT dept_name, SUM(salary) FROM employees GROUP BY dept_name;
+SELECT MIN(salary) FROM employees;
+SELECT MAX(salary) FROM employees;
+SELECT dept_name, COUNT(salary) as employee_count FROM employees GROUP BY dept_name;
+SELECT dept_name, AVG(salary) FROM employees GROUP BY dept_name;
+```
+## **19. CASE in MY SQL**
 
 ```sql
 SELECT COLUMN_NAMES, 
@@ -499,9 +800,9 @@ SELECT machine_id,ROUND(
 	END
 	) * 2,3)
 AS processing_time FROM Activity GROUP BY machine_id;
-```
-Note for question - 2 is the partition as which start and end makes 1 partition here we have 2 partition for each
 
-Note - You can add multiple WHEN as per requirements and skip ELSE.
+Note for question - 2 is the partition as which start and end makes 1 partition here we have 2 partition for each
+```
+**Note - You can add multiple WHEN as per requirements and skip ELSE.**
 
 
