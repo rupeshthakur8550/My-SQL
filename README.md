@@ -354,7 +354,7 @@ SELECT REVERSE('Everyone');
 Inserts a string into another string at a specified position.
 
 ```sql
-SELECT INSERT('Hello Wassup', 6, 0, 'Raju');
+SELECT INSERT('Hello Wassup', 6, 0, 'Prakash');
 ```
 
 ### **x. LEFT**
