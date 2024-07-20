@@ -126,9 +126,9 @@ CREATE TABLE TABLE_NAME (
 
 ### **e. FOREIGN KEY**
 This constraint is used for the below requirements:
-i. The FOREIGN KEY constraint is used to link two tables together.
-ii. A FOREIGN KEY in one table points to a PRIMARY KEY in another table, ensuring referential integrity.
-iii. FOREIGN KEYs can have duplicate values and can contain NULL values.
+1. The FOREIGN KEY constraint is used to link two tables together.
+2. A FOREIGN KEY in one table points to a PRIMARY KEY in another table, ensuring referential integrity.
+3. FOREIGN KEYs can have duplicate values and can contain NULL values.
 
 ```sql
 -- Define a foreign key
