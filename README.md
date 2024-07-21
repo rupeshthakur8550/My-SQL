@@ -39,11 +39,139 @@ SHOW DATABASES;
 - **Date:** `DATE(YYYY-MM-DD)`, `TIME(HH:MM:SS)`, `DATETIME(YYYY-MM-DD HH:MM:SS)`, `CURDATE()`, `CURTIME()`, `NOW()`, `DAYNAME('DATE')`, `DAYOFMONTH('DATE')`, `DAYOFWEEK('DATE')`, `MONTHNAME('DATE')`, `HOUR('TIME')`, `DATE_FORMAT('DATE', 'FORMAT')`, `DATE_ADD('DATE', INTERVAL VALUE DAY | MONTH | YEAR)`, `DATE_SUB('DATE', INTERVAL VALUE DAY | MONTH | YEAR)`, `TIMEDIFF('TIME1', 'TIME2')`
 
 **Date Examples:**
-```sql
-SELECT DATE_FORMAT(now(), '%D %a at %T'); -- Result: 16th Tue at 12:50:23
-SELECT DATE_FORMAT(now(), '%m/%d/%y'); -- Result: 07/16/24
-SELECT DATE_FORMAT(now(), '%r'); -- Result: 12:49:32 PM
-```
+
+1. **DATE(YYYY-MM-DD)**: Extracts the date part of a date or datetime expression.
+    ```sql
+    SELECT DATE('2024-07-16 12:30:45'); -- Result: 2024-07-16
+    ```
+
+2. **TIME(HH:MM:SS)**: Extracts the time part of a time or datetime expression.
+    ```sql
+    SELECT TIME('2024-07-16 12:30:45'); -- Result: 12:30:45
+    ```
+
+3. **DATETIME(YYYY-MM-DD HH:MM:SS)**: Represents a datetime value.
+    ```sql
+    SELECT '2024-07-16 12:30:45' AS datetime_value; -- Result: 2024-07-16 12:30:45
+    ```
+
+4. **CURDATE()**: Returns the current date.
+    ```sql
+    SELECT CURDATE(); -- Result: 2024-07-16
+    ```
+
+5. **CURTIME()**: Returns the current time.
+    ```sql
+    SELECT CURTIME(); -- Result: 12:30:45
+    ```
+
+6. **NOW()**: Returns the current date and time.
+    ```sql
+    SELECT NOW(); -- Result: 2024-07-16 12:30:45
+    ```
+
+7. **DAYNAME('DATE')**: Returns the name of the weekday for the given date.
+    ```sql
+    SELECT DAYNAME('2024-07-16'); -- Result: Tuesday
+    ```
+
+8. **DAYOFMONTH('DATE')**: Returns the day of the month for the given date.
+    ```sql
+    SELECT DAYOFMONTH('2024-07-16'); -- Result: 16
+    ```
+
+9. **DAYOFWEEK('DATE')**: Returns the day of the week for the given date (1 = Sunday, 7 = Saturday).
+    ```sql
+    SELECT DAYOFWEEK('2024-07-16'); -- Result: 3 (Tuesday)
+    ```
+
+10. **MONTHNAME('DATE')**: Returns the name of the month for the given date.
+    ```sql
+    SELECT MONTHNAME('2024-07-16'); -- Result: July
+    ```
+
+11. **HOUR('TIME')**: Returns the hour part of the given time.
+    ```sql
+    SELECT HOUR('12:30:45'); -- Result: 12
+    ```
+
+12. **DATE_FORMAT('DATE', 'FORMAT')**: Formats the date according to the specified format.
+    ```sql
+    SELECT DATE_FORMAT(now(), '%D %a at %T'); -- Result: 16th Tue at 12:50:23
+    SELECT DATE_FORMAT(now(), '%m/%d/%y'); -- Result: 07/16/24
+    SELECT DATE_FORMAT(now(), '%r'); -- Result: 12:49:32 PM
+    ```
+
+13. **DATE_ADD('DATE', INTERVAL VALUE DAY | MONTH | YEAR)**: Adds a time interval to a date.
+    ```sql
+    SELECT DATE_ADD('2024-07-16', INTERVAL 10 DAY); -- Result: 2024-07-26
+    SELECT DATE_ADD('2024-07-16', INTERVAL 1 MONTH); -- Result: 2024-08-16
+    SELECT DATE_ADD('2024-07-16', INTERVAL 1 YEAR); -- Result: 2025-07-16
+    ```
+
+14. **DATE_SUB('DATE', INTERVAL VALUE DAY | MONTH | YEAR)**: Subtracts a time interval from a date.
+    ```sql
+    SELECT DATE_SUB('2024-07-16', INTERVAL 10 DAY); -- Result: 2024-07-06
+    SELECT DATE_SUB('2024-07-16', INTERVAL 1 MONTH); -- Result: 2024-06-16
+    SELECT DATE_SUB('2024-07-16', INTERVAL 1 YEAR); -- Result: 2023-07-16
+    ```
+
+15. **TIMEDIFF('TIME1', 'TIME2')**: Returns the difference between two times.
+    ```sql
+    SELECT TIMEDIFF('12:30:45', '11:30:45'); -- Result: 01:00:00
+    ```
+
+16. **YEAR('DATE')**: Returns the year part of a date.
+    ```sql
+    SELECT YEAR('2024-07-16'); -- Result: 2024
+    ```
+
+17. **MONTH('DATE')**: Returns the month part of a date.
+    ```sql
+    SELECT MONTH('2024-07-16'); -- Result: 7
+    ```
+
+18. **DAY('DATE')**: Returns the day part of a date.
+    ```sql
+    SELECT DAY('2024-07-16'); -- Result: 16
+    ```
+
+19. **MINUTE('TIME')**: Returns the minute part of a time.
+    ```sql
+    SELECT MINUTE('12:30:45'); -- Result: 30
+    ```
+
+20. **SECOND('TIME')**: Returns the second part of a time.
+    ```sql
+    SELECT SECOND('12:30:45'); -- Result: 45
+    ```
+
+21. **WEEK('DATE')**: Returns the week number of a date (1-53).
+    ```sql
+    SELECT WEEK('2024-07-16'); -- Result: 29
+    ```
+
+22. **QUARTER('DATE')**: Returns the quarter of the year for a date (1-4).
+    ```sql
+    SELECT QUARTER('2024-07-16'); -- Result: 3
+    ```
+
+23. **DATEDIFF('DATE1', 'DATE2')**: Returns the difference in days between two dates.
+    ```sql
+    SELECT DATEDIFF('2024-07-16', '2024-07-01'); -- Result: 15
+    ```
+
+24. **LAST_DAY('DATE')**: Returns the last day of the month for the given date.
+    ```sql
+    SELECT LAST_DAY('2024-07-16'); -- Result: 2024-07-31
+    ```
+
+25. **EXTRACT(unit FROM 'DATE')**: Extracts part of a date.
+    ```sql
+    SELECT EXTRACT(YEAR FROM '2024-07-16'); -- Result: 2024
+    SELECT EXTRACT(MONTH FROM '2024-07-16'); -- Result: 7
+    SELECT EXTRACT(DAY FROM '2024-07-16'); -- Result: 16
+    ```
 
 ## **5. Create Table**
 This query is used for the creation of a table inside a selected database.
@@ -327,7 +455,7 @@ UPDATE employees SET name = 'Johnathan Doe' WHERE email = 'john.doe@example.com'
 
 **Operators with WHERE clause:**
 - **Arithmetic Operators:** `+`, `-`, `*`, `/`, `%`
-- **Comparison Operators:** `=`, `!=`, `>`, `>=`, `<`, `<=`
+- **Comparison Operators:** `=`, `!= or <>`, `>`, `>=`, `<`, `<=`
 - **Logical Operators:** `AND`, `OR`, `IN`,`NOT IN`, `BETWEEN`, `ALL`, `IS NULL`, `LIKE`, `NOT LIKE`, `ANY`
 - **Bitwise Operators:** `&`, `|`
 
@@ -377,7 +505,7 @@ Examples for Operators-
    WHERE employee_id = 12;
    ```
 
-2. **Not Equal (`!=`)**: Find employees not in the IT department.
+2. **Not Equal (`!= or <>`)**: Find employees not in the IT department.
    ```sql
    SELECT *
    FROM employees
@@ -558,6 +686,26 @@ SELECT department, COUNT(*) FROM employees GROUP BY department;
 Note - 
 1. COLUMN_NAME must be same on both side and also if you are using more than one COLUMN_NAME then add all of them into group by side as well otherwise it throws error.
 2. It return distinct record by default.
+
+### f. HAVING 
+
+The `HAVING` clause is used to filter groups based on a condition, typically after the groups are created with the `GROUP BY` clause. It is similar to the `WHERE` clause, but `HAVING` is used for filtering groups, whereas `WHERE` is used for filtering individual rows.
+
+```sql
+SELECT COLUMN_NAME, COUNT(*)
+FROM TABLE_NAME
+GROUP BY COLUMN_NAME
+HAVING condition;
+```
+
+Example -
+
+```sql
+SELECT department, COUNT(*) as dept_count
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 2;
+```
 
 ## **13. ALIAS**
 This is used to give a temporary name to a column in a query.
