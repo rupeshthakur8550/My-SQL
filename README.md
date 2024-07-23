@@ -1216,6 +1216,3 @@ SELECT subquery.department, COUNT(*)
 FROM (SELECT department FROM employees WHERE salary > 50000) AS subquery
 GROUP BY subquery.department;
 ```
-
-These sections cover the use of the `CASE` statement, creating and managing indexes, defining and using views, and working with subqueries in MySQL.
-
