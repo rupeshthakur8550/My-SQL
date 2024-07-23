@@ -961,4 +961,261 @@ Note for question : 2 is the partition as start and end makes 1 partition here w
 ```
 **Note - You can add multiple WHEN as per requirements and skip ELSE.**
 
+---
+
+## **20. Indexes in MySQL**
+
+Indexes are used to improve the speed of data retrieval operations on a database table at the cost of additional storage and slower write operations.
+
+#### Creating Indexes
+
+**Creating Index with Table Creation**
+
+```sql
+CREATE TABLE table_name (
+    column1 datatype,
+    column2 datatype,
+    ...,
+    INDEX index_name (column_name)
+);
+```
+
+**Example:**
+
+```sql
+CREATE TABLE employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    department VARCHAR(100),
+    INDEX idx_department (department)
+);
+```
+
+**Creating Index After Table Creation**
+
+```sql
+CREATE INDEX index_name ON table_name (column_name);
+```
+
+**Example:**
+
+```sql
+CREATE INDEX idx_department ON employees (department);
+```
+
+#### Types of Indexes
+
+1. **Primary Key Index**
+   - Automatically created when defining a primary key.
+   ```sql
+   CREATE TABLE employees (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       name VARCHAR(100)
+   );
+   ```
+
+2. **Unique Index**
+   - Ensures all values in a column are distinct.
+   ```sql
+   CREATE UNIQUE INDEX index_name ON table_name (column_name);
+   ```
+   **Example:**
+   ```sql
+   CREATE UNIQUE INDEX idx_employee_id ON employees (id);
+   ```
+
+3. **Full-Text Index**
+   - Used for text searching.
+   ```sql
+   CREATE FULLTEXT INDEX index_name ON table_name (column_name);
+   ```
+   **Example:**
+   ```sql
+   CREATE FULLTEXT INDEX idx_name ON employees (name);
+   ```
+
+4. **Composite Index**
+   - Index based on multiple columns.
+   ```sql
+   CREATE INDEX index_name ON table_name (column1, column2);
+   ```
+   **Example:**
+   ```sql
+   CREATE INDEX idx_name_department ON employees (name, department);
+   ```
+
+5. **Spatial Index**
+   - Used for spatial data types like geometry.
+   ```sql
+   CREATE SPATIAL INDEX index_name ON table_name (column_name);
+   ```
+   **Example:**
+   ```sql
+   CREATE SPATIAL INDEX idx_location ON geo_table (location);
+   ```
+
+#### Viewing Indexes 
+
+**List All Indexes in a Table**
+
+```sql
+SHOW INDEX FROM table_name;
+```
+
+---
+
+## **21. Views in MySQL**
+
+A view is a virtual table based on the result-set of an SQL statement. Views can simplify complex queries, enhance security, and provide a layer of abstraction.
+
+#### Creating a View
+
+```sql
+CREATE VIEW view_name AS
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+```
+
+**Example:**
+
+```sql
+CREATE VIEW employee_view AS
+SELECT id, name, department
+FROM employees
+WHERE department = 'Engineering';
+```
+
+#### Using a View
+
+```sql
+SELECT * FROM view_name;
+```
+
+**Example:**
+
+```sql
+SELECT * FROM employee_view;
+```
+
+#### Updating a View
+
+```sql
+CREATE OR REPLACE VIEW view_name AS
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+```
+
+**Example:**
+
+```sql
+CREATE OR REPLACE VIEW employee_view AS
+SELECT id, name, department
+FROM employees
+WHERE department = 'Sales';
+```
+
+#### Dropping a View
+
+```sql
+DROP VIEW view_name;
+```
+
+**Example:**
+
+```sql
+DROP VIEW employee_view;
+```
+
+---
+
+## **22. Subqueries in MySQL **
+
+A subquery is a query nested inside another query. It can be used in `SELECT`, `INSERT`, `UPDATE`, or `DELETE` statements or inside another subquery.
+
+#### Types of Subqueries
+
+1. **Single Row Subquery**
+   - Returns a single row.
+   ```sql
+   SELECT column1
+   FROM table1
+   WHERE column2 = (SELECT column2 FROM table2 WHERE condition);
+   ```
+
+   **Example:**
+
+   ```sql
+   SELECT name
+   FROM employees
+   WHERE department_id = (SELECT id FROM departments WHERE name = 'HR');
+   ```
+
+2. **Multiple Row Subquery**
+   - Returns multiple rows.
+   ```sql
+   SELECT column1
+   FROM table1
+   WHERE column2 IN (SELECT column2 FROM table2 WHERE condition);
+   ```
+
+   **Example:**
+
+   ```sql
+   SELECT name
+   FROM employees
+   WHERE department_id IN (SELECT id FROM departments WHERE location = 'New York');
+   ```
+
+3. **Correlated Subquery**
+   - References columns from the outer query.
+   ```sql
+   SELECT column1
+   FROM table1 t1
+   WHERE column2 = (SELECT column2 FROM table2 t2 WHERE t2.column3 = t1.column3);
+   ```
+
+   **Example:**
+
+   ```sql
+   SELECT e1.name
+   FROM employees e1
+   WHERE e1.salary > (SELECT AVG(e2.salary) FROM employees e2 WHERE e2.department_id = e1.department_id);
+   ```
+
+#### Using Subqueries
+
+**Subquery in SELECT Clause**
+
+```sql
+SELECT column1,
+    (SELECT column2 FROM table2 WHERE condition) AS alias_name
+FROM table1;
+```
+
+**Example:**
+
+```sql
+SELECT name,
+    (SELECT COUNT(*) FROM tasks WHERE tasks.employee_id = employees.id) AS task_count
+FROM employees;
+```
+
+**Subquery in FROM Clause**
+
+```sql
+SELECT alias_name.column1
+FROM (SELECT column1 FROM table2 WHERE condition) AS alias_name;
+```
+
+**Example:**
+
+```sql
+SELECT subquery.department, COUNT(*)
+FROM (SELECT department FROM employees WHERE salary > 50000) AS subquery
+GROUP BY subquery.department;
+```
+
+These sections cover the use of the `CASE` statement, creating and managing indexes, defining and using views, and working with subqueries in MySQL.
 
