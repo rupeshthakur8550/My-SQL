@@ -1478,9 +1478,7 @@ FROM employees;
    +-------------+-------------+-----------------+--------------+
    | Bob Brown   |          15 | NULL            | NULL         |
    | Fiona Black |          19 | NULL            | NULL         |
-   | Jack Lewis  |          23 | NULL            | NULL        
-
- |
+   | Jack Lewis  |          23 | NULL            | NULL         |
    +-------------+-------------+-----------------+--------------+
    ```
 
