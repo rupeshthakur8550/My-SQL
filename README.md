@@ -1217,7 +1217,7 @@ FROM (SELECT department FROM employees WHERE salary > 50000) AS subquery
 GROUP BY subquery.department;
 ```
 ---
-### **22. MySQL Comparison Functions**
+### **23. MySQL Comparison Functions**
 
 MySQL provides several functions to compare values and handle NULL values effectively. Below are explanations and examples of `COALESCE`, `IFNULL`, `GREATEST`, `LEAST`, and `ISNULL`.
 
@@ -1291,7 +1291,7 @@ SELECT name,
 FROM employees;
 ```
 
-**Note - If NULL is there Then Both returns NULL without comparing values, to handle this use IFNULL(val, 0)
+**Note - If NULL is there Then Both returns NULL without comparing values, to handle this use IFNULL(val, 0)**
 
 #### **ISNULL**
 
