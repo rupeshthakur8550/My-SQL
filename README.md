@@ -1216,3 +1216,98 @@ SELECT subquery.department, COUNT(*)
 FROM (SELECT department FROM employees WHERE salary > 50000) AS subquery
 GROUP BY subquery.department;
 ```
+---
+### **22. MySQL Comparison Functions**
+
+MySQL provides several functions to compare values and handle NULL values effectively. Below are explanations and examples of `COALESCE`, `IFNULL`, `GREATEST`, `LEAST`, and `ISNULL`.
+
+#### **COALESCE**
+
+The `COALESCE` function returns the first non-NULL value in the list of arguments. It can take two or more arguments.
+
+```sql
+SELECT COALESCE(column1, column2, 'default_value') AS result
+FROM table_name;
+```
+
+**Example:**
+
+```sql
+SELECT name,
+    COALESCE(email, 'noemail@example.com') AS contact_email
+FROM employees;
+```
+
+#### **IFNULL**
+
+The `IFNULL` function returns the first argument if it is not NULL, otherwise, it returns the second argument.
+
+```sql
+SELECT IFNULL(column1, 'default_value') AS result
+FROM table_name;
+```
+
+**Example:**
+
+```sql
+SELECT name,
+    IFNULL(phone, 'No phone number') AS contact_phone
+FROM employees;
+```
+
+**NOTE - 1. COALESCE is used for more than 2 arguments and IFNULL for 2 only. 
+	 2. They both are used to handle NULL value in Query Result**
+#### **GREATEST**
+
+The `GREATEST` function returns the greatest value from the list of arguments.
+
+```sql
+SELECT GREATEST(column1, column2, column3, ...) AS greatest_value
+FROM table_name;
+```
+
+**Example:**
+
+```sql
+SELECT name,
+    GREATEST(salary_2022, salary_2023) AS max_salary
+FROM employees;
+```
+
+#### **LEAST**
+
+The `LEAST` function returns the smallest value from the list of arguments.
+
+```sql
+SELECT LEAST(column1, column2, column3, ...) AS least_value
+FROM table_name;
+```
+
+**Example:**
+
+```sql
+SELECT name,
+    LEAST(salary_2022, salary_2023) AS min_salary
+FROM employees;
+```
+
+**Note - If NULL is there Then Both returns NULL without comparing values, to handle this use IFNULL(val, 0)
+
+#### **ISNULL**
+
+The `ISNULL` function checks if a value is NULL. It returns 1 if the value is NULL, otherwise it returns 0.
+
+```sql
+SELECT ISNULL(column_name) AS is_null
+FROM table_name;
+```
+
+**Example:**
+
+```sql
+SELECT name,
+    ISNULL(phone) AS phone_missing
+FROM employees;
+```
+
+---
