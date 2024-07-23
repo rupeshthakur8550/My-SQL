@@ -1130,7 +1130,7 @@ DROP VIEW employee_view;
 
 ---
 
-## **22. Subqueries in MySQL **
+## **22. Subqueries in MySQL**
 
 A subquery is a query nested inside another query. It can be used in `SELECT`, `INSERT`, `UPDATE`, or `DELETE` statements or inside another subquery.
 
