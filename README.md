@@ -1309,5 +1309,212 @@ SELECT name,
     ISNULL(phone) AS phone_missing
 FROM employees;
 ```
+---
 
+## **24 . MY SQL Joins ***
+1. **Cross Join**:
+   - Every row from one table is combined with every row from another table.
+   ```sql
+   SELECT * FROM TABLE1_NAME CROSS JOIN TABLE2_NAME;
+   ```
+   - Example:
+   ```sql
+   SELECT e1.name, e1.dept_name, d1.id, d1.manager_name FROM employees e1 CROSS JOIN department d1;
+   ```
+   Result -
+   ```
++---------------+-----------+----+---------------+
+| name          | dept_name | id | manager_name  |
++---------------+-----------+----+---------------+
+| John Doe      | HR        |  3 | Fiona Black   |
+| John Doe      | HR        |  2 | Dana White    |
+| John Doe      | HR        |  1 | Charlie Davis |
+| Jane Smith    | IT        |  3 | Fiona Black   |
+| Jane Smith    | IT        |  2 | Dana White    |
+| Jane Smith    | IT        |  1 | Charlie Davis |
+| Alice Johnson | Finance   |  3 | Fiona Black   |
+| Alice Johnson | Finance   |  2 | Dana White    |
+| Alice Johnson | Finance   |  1 | Charlie Davis |
+| Bob Brown     | Marketing |  3 | Fiona Black   |
+| Bob Brown     | Marketing |  2 | Dana White    |
+| Bob Brown     | Marketing |  1 | Charlie Davis |
+| Charlie Davis | HR        |  3 | Fiona Black   |
+| Charlie Davis | HR        |  2 | Dana White    |
+| Charlie Davis | HR        |  1 | Charlie Davis |
+| Dana White    | IT        |  3 | Fiona Black   |
+| Dana White    | IT        |  2 | Dana White    |
+| Dana White    | IT        |  1 | Charlie Davis |
+| Evan Green    | Finance   |  3 | Fiona Black   |
+| Evan Green    | Finance   |  2 | Dana White    |
+| Evan Green    | Finance   |  1 | Charlie Davis |
+| Fiona Black   | Marketing |  3 | Fiona Black   |
+| Fiona Black   | Marketing |  2 | Dana White    |
+| Fiona Black   | Marketing |  1 | Charlie Davis |
+| George Harris | HR        |  3 | Fiona Black   |
+| George Harris | HR        |  2 | Dana White    |
+| George Harris | HR        |  1 | Charlie Davis |
+| Holly Evans   | IT        |  3 | Fiona Black   |
+| Holly Evans   | IT        |  2 | Dana White    |
+| Holly Evans   | IT        |  1 | Charlie Davis |
+| Ivy Collins   | Finance   |  3 | Fiona Black   |
+| Ivy Collins   | Finance   |  2 | Dana White    |
+| Ivy Collins   | Finance   |  1 | Charlie Davis |
+| Jack Lewis    | Marketing |  3 | Fiona Black   |
+| Jack Lewis    | Marketing |  2 | Dana White    |
+| Jack Lewis    | Marketing |  1 | Charlie Davis |
++---------------+-----------+----+---------------+
+```
+
+2. **Inner Join**:
+   - Returns only the rows where there is a match between the specified columns in both tables.
+   ```sql
+   SELECT * FROM employee INNER JOIN emp ON employee.id = emp.id;
+   ```
+   - Example:
+   ```sql
+    SELECT e1.id, e1.name, e1.employee_id, e2.name, e2.manager_id FROM employees e1 INNER JOIN employees e2 ON e1.employee_id = e2.manager_id;
+   ```
+
+   Result -
+   ```
++----+---------------+-------------+---------------+------------+
+| id | name          | employee_id | name          | manager_id |
++----+---------------+-------------+---------------+------------+
+| 21 | George Harris |          20 | John Doe      |         20 |
+| 21 | George Harris |          20 | Jane Smith    |         20 |
+| 13 | John Doe      |          12 | Alice Johnson |         12 |
+| 21 | George Harris |          20 | Bob Brown     |         20 |
+| 24 | Jack Lewis    |          23 | Charlie Davis |         23 |
+| 13 | John Doe      |          12 | Dana White    |         12 |
+| 14 | Jane Smith    |          13 | Evan Green    |         13 |
+| 13 | John Doe      |          12 | Fiona Black   |         12 |
+| 24 | Jack Lewis    |          23 | George Harris |         23 |
+| 16 | Bob Brown     |          15 | Holly Evans   |         15 |
+| 24 | Jack Lewis    |          23 | Ivy Collins   |         23 |
++----+---------------+-------------+---------------+------------+
+```
+
+3. **Self Join**:
+   - When you perform a self join, each row from Table A is paired with every other row from the same Table A.
+   - The result is a vast matrix—a complete fusion of all possibilities within the same universe!
+   ```sql
+   SELECT COLUMNS_FROM_A, COLUMNS_FROM_B FROM TABLE_NAME T1 JOIN TABLE_NAME T2 ON CONDITION;
+   ```
+   - Example:
+   ```sql
+   SELECT e1.name, e1.email, e2.name, e2.dept_name FROM employees e1 JOIN employees e2 ON e1.employee_id = e2.id;
+   ```
+   Result -
+```
++---------------+---------------------------+---------------+-----------+
+| name          | email                     | name          | dept_name |
++---------------+---------------------------+---------------+-----------+
+| Jane Smith    | jane.smith@example.com    | John Doe      | HR        |
+| Alice Johnson | alice.johnson@example.com | Jane Smith    | IT        |
+| Bob Brown     | bob.brown@example.com     | Alice Johnson | Finance   |
+| Charlie Davis | charlie.davis@example.com | Bob Brown     | Marketing |
+| Dana White    | dana.white@example.com    | Charlie Davis | HR        |
+| Evan Green    | evan.green@example.com    | Dana White    | IT        |
+| Fiona Black   | fiona.black@example.com   | Evan Green    | Finance   |
+| George Harris | george.harris@example.com | Fiona Black   | Marketing |
+| Holly Evans   | holly.evans@example.com   | George Harris | HR        |
+| Ivy Collins   | ivy.collins@example.com   | Holly Evans   | IT        |
+| Jack Lewis    | jack.lewis@example.com    | Ivy Collins   | Finance   |
++---------------+---------------------------+---------------+-----------+
+```
+
+4. **Left Outer Join**:
+   - Retrieves all records from the `employee` table and matched records from the `department` table. Unmatched records in the `department` table will have NULL values.
+   ```sql
+   SELECT  e.name,e.employee_id,d.department_name, d.project_name FROM employee e LEFT JOIN department d ON e.dept_id = d.id;
+   ```
+Result -
+```
++---------------+-------------+-----------------+--------------------+
+| name          | employee_id | department_name | project_name       |
++---------------+-------------+-----------------+--------------------+
+| John Doe      |          12 | HR              | Cosmic Explorer    |
+| Jane Smith    |          13 | IT              | Stellar Innovators |
+| Alice Johnson |          14 | Finance         | Galactic Ventures  |
+| Bob Brown     |          15 | NULL            | NULL               |
+| Charlie Davis |          16 | HR              | Cosmic Explorer    |
+| Dana White    |          17 | IT              | Stellar Innovators |
+| Evan Green    |          18 | Finance         | Galactic Ventures  |
+| Fiona Black   |          19 | NULL            | NULL               |
+| George Harris |          20 | HR              | Cosmic Explorer    |
+| Holly Evans   |          21 | IT              | Stellar Innovators |
+| Ivy Collins   |          22 | Finance         | Galactic Ventures  |
+| Jack Lewis    |          23 | NULL            | NULL               |
++---------------+-------------+-----------------+--------------------+
+```
+
+5. **Exclusive Left Outer Join**:
+   - Retrieves all records from the `employee` table that do not have matching records in the `department` table.
+   ```sql
+    SELECT  e.name,e.employee_id,d.department_name, d.project_name FROM employee e LEFT JOIN department d ON e.dept_id = d.id WHERE d.id IS NULL;
+   ```
+   Result -
+```
++-------------+-------------+-----------------+--------------+
+| name        | employee_id | department_name | project_name |
++-------------+-------------+-----------------+--------------+
+| Bob Brown   |          15 | NULL            | NULL         |
+| Fiona Black |          19 | NULL            | NULL         |
+| Jack Lewis  |          23 | NULL            | NULL         |
++-------------+-------------+-----------------+--------------+
+```
+
+6. **Right Outer Join**:
+   - Retrieves all records from the `department` table and matched records from the `employee` table. Unmatched records in the `employee` table will have NULL values.
+   ```sql
+   SELECT e.name,e.employee_id,d.department_name, d.project_name FROM employee e RIGHT JOIN department d ON e.dept_id = d.id;
+   ```
+Result -
+```
++---------------+-------------+-----------------+--------------------+
+| name          | employee_id | department_name | project_name       |
++---------------+-------------+-----------------+--------------------+
+| George Harris |          20 | HR              | Cosmic Explorer    |
+| Charlie Davis |          16 | HR              | Cosmic Explorer    |
+| John Doe      |          12 | HR              | Cosmic Explorer    |
+| Holly Evans   |          21 | IT              | Stellar Innovators |
+| Dana White    |          17 | IT              | Stellar Innovators |
+| Jane Smith    |          13 | IT              | Stellar Innovators |
+| Ivy Collins   |          22 | Finance         | Galactic Ventures  |
+| Evan Green    |          18 | Finance         | Galactic Ventures  |
+| Alice Johnson |          14 | Finance         | Galactic Ventures  |
++---------------+-------------+-----------------+--------------------+
+```
+
+
+7. **Exclusive Right Outer Join**:
+   - Retrieves all records from the `department` table that do not have matching records in the `employee` table.
+   ```sql
+   SELECT e.name,e.employee_id,d.department_name, d.project_name FROM employee e RIGHT JOIN department d ON e.dept_id = d.id WHERE e.dept_id IS NULL;
+   ```
+
+8. **Full Outer Join**:
+   - Retrieves records when there is a match in either table. Unmatched records will have NULL values.
+   ```sql
+   SELECT e.id, e.name, d.department_name FROM employees e LEFT JOIN departments d ON e.dept_id = d.id UNION SELECT e.id, e.name, d.department_name FROM employees e RIGHT JOIN departments d ON e.dept_id = d.id;
+   ```
+Result - 
+```
++------+---------------+-----------------+
+| id   | name          | department_name |
++------+---------------+-----------------+
+|   13 | John Doe      | HR              |
+|   14 | Jane Smith    | IT              |
+|   15 | Alice Johnson | Finance         |
+|   16 | Bob Brown     | NULL            |
+|   17 | Charlie Davis | HR              |
+|   18 | Dana White    | IT              |
+|   19 | Evan Green    | Finance         |
+|   20 | Fiona Black   | NULL            |
+|   21 | George Harris | HR              |
+|   22 | Holly Evans   | IT              |
+|   23 | Ivy Collins   | Finance         |
+|   24 | Jack Lewis    | NULL            |
++------+---------------+-----------------+
+```
 ---
