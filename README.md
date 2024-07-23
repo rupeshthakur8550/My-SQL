@@ -1064,7 +1064,7 @@ SHOW INDEX FROM table_name;
 
 ---
 
-## **21. Views in MySQL**
+## **21.  Views in MySQL**
 
 A view is a virtual table based on the result-set of an SQL statement. Views can simplify complex queries, enhance security, and provide a layer of abstraction.
 
